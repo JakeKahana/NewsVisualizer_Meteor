@@ -1,13 +1,80 @@
 <head>
-  <title>NewsVisualizer_Meteor</title>
+  <title>NewsVisualizer</title>
 </head>
 
 <body>
-  {{> hello}}
+	<div id="topbar"><p><span class="title">Today's<strong>word </strong>|</span><span class="subhead"> what’s the most used word in the news today?</span></p></div>
+  {{> today}}
+  {{> newdate}}
+  {{> trends}}
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="today">
+<div id="today">
+	<div id="container">
+			<div id="date" class="date">
+			{{thedate}}
+			</div>
+
+			<span class="word">
+  			{{wordofday}} 
+  			</span> <br />
+
+	  		<span class="references">
+	  		{{references}} 
+	  		</span><br />
+
+	 		<span class="links">
+	  		{{links}} 
+	  		</span><br />
+  	</div>
+  		<a href="#" id="jumptodate">jump to date</a>
+		<input type="text" value="jump to word" id="jumptoword">
+		<a href="#" id="trend">trends</a>
+</div>
+</template>
+
+
+<template name="newdate">
+<div id="newdate">
+	<div id="container">
+		<div id="date" class="newdate">
+		{{thedate}}
+		</div>
+
+		<span class="newword">
+  		{{word}} 
+  		</span> <br />
+
+  		<span class="newreferences">
+  		{{references}} 
+  		</span><br />
+
+ 		<span class="newlinks">
+  		{{links}} 
+  		</span><br />
+	</div>
+		<a href="#" id="jumptodate">{{thedate}}</a>
+		<input type="text" value="jump to word" id="jumptoword">
+		<a href="#" id="trend">trends</a>
+</div>
+</template>
+
+<template name="trends">
+<div id="trends">
+	<div id="container">
+		<div id="trendate" class="trendate">
+		{{thedate}}
+		</div>
+
+		<span class="trendword">
+  		{{listofwords}} 
+  		</span> <br /><br /><br />
+
+
+	</div>
+  		<a href="#" id="jumptodate">jump to date</a>
+		<input type="text" value="jump to word" id="jumptoword">
+		<a href="#" id="trend">trends</a>
+</div>
 </template>
