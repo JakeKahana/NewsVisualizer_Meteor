@@ -1,0 +1,216 @@
+/* CSS declarations go here */
+body{
+	background-color: #252525;
+	font-family: 'Lato', sans-serif;
+	color: #fff;
+	font-weight: 100;
+	margin: 0px;
+	padding: 0px;
+}
+#topbar {
+	background-color: #000000;
+	width: 100%;
+	height: 52px;
+	margin: 0px;
+	position: absolute;
+	top: 0px;
+
+}
+.title{
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1.6em;
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+.title strong{
+	margin-right: 20px;
+}
+
+.subhead{
+	color: #fff;
+	text-transform: lowercase;
+	font-style: italic;
+	font-size: 1.3em;
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+#box{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#container{
+	background-color: #000;
+	height: 400px;
+	width: 800px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	margin-top: 80px;
+
+}
+
+#today{
+	display: block;
+	margin-top: 90px;
+	margin-bottom: 80px;
+	text-align: center;	
+
+}
+
+a {
+	background-color: #000;
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 0.8em;
+}
+
+a:visited{
+	text-decoration: none;
+	color: #fff;
+}
+
+.bottombutton{
+	background-color: #000;
+	display: inline-block;
+	text-align: center;
+	width: 265px;
+	height:30px;
+	padding-top: 10px;
+	margin-top: 17px;
+}
+.jump{
+	margin-left: 50px;	
+	font-size: 0.8em;
+
+}
+
+.jumptodate {
+	background-color: #000;
+	color: #bbb;
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 0.8em;
+	text-align: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	border: 0px;
+}
+.jumptoword {
+	background-color: #000;
+	color: #bbb;
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 0.8em;
+	text-align: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	border: 0px;
+}
+
+
+.word {
+	color: #e68dff;
+	text-transform: lowercase;
+	font-size: 13em;
+	text-align: center;
+	margin: 15px;
+}
+
+.date {		
+	color: #e68dff;
+	text-transform: lowercase;
+	font-size: .9em;
+	text-align: center;
+
+	background-color: #191919;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.references{
+	color: #e68dff;
+	font-size: .9em;
+	text-transform: lowercase;
+	text-align: center;
+
+}
+.links{
+	color: #e68dff;
+	font-size: .9em;
+	text-transform: lowercase;
+	text-align: center;
+
+}
+
+#newdate{
+	display: none;
+	margin-top: 90px;
+	margin-bottom: 80px;
+	text-align: center;	
+}
+
+.newword {
+	color: #eeff8d;
+	text-transform: lowercase;
+	font-size: 13em;
+	text-align: center;
+	margin: 15px;
+}
+
+.newdate {
+	color: #eeff8d;
+	text-transform: lowercase;
+	font-size: .9em;
+	text-align: center;
+	background-color: #191919;
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+}
+
+.newreferences{
+	color: #eeff8d;
+	font-size: .9em;
+	text-transform: lowercase;
+	text-align: center;
+
+}
+.newlinks{
+	color: #eeff8d;
+	font-size: .9em;
+	text-transform: lowercase;
+	text-align: center;
+
+}
+
+#trends{
+	display: none;
+	margin-top: 90px;
+	margin-bottom: 80px;
+	text-align: center;	
+}
+.trendword {
+	color: #8dc5ff;
+	text-transform: lowercase;
+	font-size: 13em;
+	text-align: left;
+	margin: 15px;
+}
+.trendate {
+	color: #8dc5ff;
+	text-transform: lowercase;
+	font-size: .9em;
+	text-align: center;
+	background-color: #191919;
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+}

@@ -1,0 +1,103 @@
+<head>
+  <title>NewsVisualizer</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	<div id="topbar"><p><span class="title">Today's<strong>word </strong>|</span><span class="subhead"> what’s the most used word in the news today?</span></p></div>
+	<div id="container">
+
+  		{{> today}}
+  		{{> newdate}}
+  		{{> trends}}
+  		{{> newword}}
+  		{{> buttons}}
+	</div>	
+</body>
+
+<template name="today">
+<div id="today">
+	<div id="date" class="date">
+	{{thedate}}
+	</div>
+
+	<span class="word">
+	{{wordofday}} 
+	</span> <br />
+
+	<span class="references">
+	{{references}} 
+	</span><br />
+
+	<span class="links">
+	{{links}} 
+	</span><br />
+</div>
+</template>
+
+
+<template name="newdate">
+<div id="newdate">
+	<div id="date" class="newdate">
+	{{thedate}}
+	</div>
+
+	<span class="newword">
+	{{word}} 
+	</span> <br />
+
+	<span class="newreferences">
+	{{references}} 
+	</span><br />
+
+	<span class="newlinks">
+	{{links}} 
+	</span><br />
+</div>
+</template>
+
+<template name="newword">
+<div id="newword">
+	<div id="searchword" class="searchword">
+	{{searchedword}} 
+	</div>
+
+	<span class="searchedword">
+	{{word}} 
+	</span> <br />
+
+	<span class="newreferences">
+	{{references}} 
+	</span><br />
+
+	<span class="newlinks">
+	{{links}} 
+	</span><br />
+</div>
+</template>
+
+<template name="trends">
+<div id="trends">
+	<div id="trendate" class="trendate">
+	{{thedate}}
+	</div>
+
+	<span class="trendword">
+	{{listofwords}} 
+	</span> <br /><br /><br />
+</div>
+</template>
+
+
+<template name="buttons">
+	<div class="bottombutton" id="jumptodate">
+			<span class="jump">jump to date:</span> 
+			<input id="dates" type="text" value="january 1, 2000" class="jumptodate">
+	  	</div>
+		<div class="bottombutton">
+			<span class="jump">jump to word:</span><input type="text" value="type word here" class="jumptoword">		
+		</div>
+		<div class="bottombutton">
+			<a href="#" id="trendbtn">trends</a>
+		</div>
+</template>
