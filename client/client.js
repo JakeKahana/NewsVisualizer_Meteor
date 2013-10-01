@@ -1,151 +1,161 @@
+//BUGS:
+
+// 2. trends 
+//     Overflow scroll?
+
+// 3. reference links to be links
+
+
+
 var currenttemplate = "today";
 
-Template.buttons.events({
-'click #trendbtn': function(){
+//getting today's date
+var monthNames = new Array(
+"january","february","march","april","may","june","july",
+"august","september","october", "november","december");
+var now = new Date();
+displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+
+
+var backtotoday = function(){
     if(currenttemplate == "today"){
         $("#today").fadeOut(300, function(){
-        $("#trends").fadeIn(300);
+        $("#today").fadeIn(300);
         })
     }else if(currenttemplate == "newdate"){
         $("#newdate").fadeOut(300, function(){
-        $("#trends").fadeIn(300);
+        $("#today").fadeIn(300);
         })
     }else if(currenttemplate == "trends"){
         $("#trends").fadeOut(300, function(){
-        $("#trends").fadeIn(300);
+        $("#today").fadeIn(300);
         })
     }else if(currenttemplate == "newword"){
         $("#newword").fadeOut(300, function(){
-        $("#trends").fadeIn(300);
+        $("#today").fadeIn(300);
         })
     }else {
         null;
     }
+  currenttemplate = "today";
+}
+
+
+Template.buttons.events({
+  'click #trendbtn': function(){
+      if(currenttemplate == "today"){
+          $("#today").fadeOut(300, function(){
+          $("#trends").fadeIn(300);
+          })
+      }else if(currenttemplate == "newdate"){
+          $("#newdate").fadeOut(300, function(){
+          $("#trends").fadeIn(300);
+          })
+      }else if(currenttemplate == "trends"){
+          $("#trends").fadeOut(300, function(){
+          $("#trends").fadeIn(300);
+          })
+      }else if(currenttemplate == "newword"){
+          $("#newword").fadeOut(300, function(){
+          $("#trends").fadeIn(300);
+          })
+      }else {
+          null;
+      }
     currenttemplate = "trends";
   }
 });
 
+function changeDates(){
+    if(currenttemplate == "today"){
+      $("#today").fadeOut(300, function(){
+        $("#newdate").fadeIn(300);
+      });
+    }else if(currenttemplate == "newdate"){
+      $("#newdate").fadeOut(300, function(){
+        $("#newdate").fadeIn(300);
+      });
+    }else if(currenttemplate == "trends"){
+      $("#trends").fadeOut(300, function(){
+        $("#newdate").fadeIn(300);
+      });
+    }else if(currenttemplate == "newword"){
+      $("#newword").fadeOut(300, function(){
+        $("#newdate").fadeIn(300);
+      });
+    }
+  currenttemplate = "newdate";
+  Session.set("anewdate", $( "#dates" ).val().toLowerCase());
+}
+
 Template.buttons.events({
-'click #dates': function(){
+  'change #dates': function(){
+    changeDates();
+  }
+});
+
+Template.buttons.rendered = function(){
+  $("#dates").datepicker({
+    format: "MM d, yyyy",
+    autoclose: true,
+  }).on('changeDate', function(e){
+    changeDates();
+  });
+};
+
+Template.buttons.events({
+  'change #somenewword': function(){
     if(currenttemplate == "today"){
         $("#today").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
+        $("#newword").fadeIn(300);
         })
     }else if(currenttemplate == "newdate"){
         $("#newdate").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
+        $("#newword").fadeIn(300);
         })
     }else if(currenttemplate == "trends"){
         $("#trends").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
+        $("#newword").fadeIn(300);
         })
     }else if(currenttemplate == "newword"){
         $("#newword").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
+        $("#newword").fadeIn(300);
         })
     }else {
         null;
     }
-    currenttemplate = "newdate";
+    currenttemplate = "newword";
+    Session.set("anewword", $( "#somenewword" ).val().toLowerCase())
   }
 });
 
+Template.today.wordofday = function(){
+  var todaysdate = Words.findOne({date: displaydate});
+  return todaysdate;
+}
 
-  
-
-Template.today.events({
-    'click .jumptodate' : function(){
- 
-    },
-    'click .jumptoword': function(){
-
-    },
-    'click #trend': function(){
-
-    }
-  });
-  Template.newdate.events({
-    'click .jumptodate' : function(){
-   
-    },
-    'click .jumptoword': function(){
-
-    },
-    'click #trend': function(){
-     
-    }
-  });
-  Template.trends.events({
-    'click .jumptodate' : function(){
-   
-    },
-    'click .jumptoword': function(){
-  
-    },
-    'click #trend': function(){
-      
-      }
-  
-  });
+Template.newdate.searcheddate = function(){
+  var anewdate = Session.get("anewdate");
+  var wordInfo = Words.findOne({date: anewdate});
+  return wordInfo;
+}
 
 
-  Template.today.wordofday = function(){
-    var todaysdate = Words.findOne({date: "june 19, 2013"});
-    if(todaysdate){
-    var todaysword = todaysdate.word;
-    return todaysword;
-    }
-  }
-  Template.today.thedate = function(){
-  var todaysdate = Words.findOne({date: "june 19, 2013"});
-    if(todaysdate){
-    return todaysdate.date;
-    }
-  }
-  Template.today.references = function(){
-  var todaysdate = Words.findOne({date: "june 19, 2013"});
-    if(todaysdate){
-    return todaysdate.freqtoday + " mentions today";
-    }
-  }
-  Template.today.links = function(){
-    var todaysdate = Words.findOne({date: "june 19, 2013"});
-    if(todaysdate){
-    var todayswordlink = todaysdate.article;
-    return todayswordlink;
-    }  
-  }
+Template.newword.searchedword = function(){
+  var anewword = Session.get("anewword");
+  var wordInfo = Words.findOne({word: anewword});
+  return wordInfo;
+}
 
 
-  Template.newdate.word = function(){
-   var todaysdate = Words.findOne({date: "january 1, 2000"});
-    if(todaysdate){
-    var todaysword = todaysdate.word;
-    return todaysword;
-    } 
-  }
-  
-  Template.newdate.thedate = function(){
-    return "february 27, 2007";
-  }
-  Template.newdate.references = function(){
-    var todaysdate = Words.findOne({date: "january 1, 2000"});
-    if(todaysdate){
-       return todaysdate.freqtoday + " references today";
-    }
+Template.trends.listofwords = function(){
+    return Words.find();
+}
 
-    return "26 mentions";
-  }
-  Template.newdate.links = function(){
-    return "recent article";
-  }
-
-
-  Template.trends.listofwords = function(){
-    return "crisis";
-  }
-  Template.trends.thedate = function(){
+Template.trends.trendfreq = function(){
+    return "frequency";
+}
+Template.trends.thedate = function(){
     return "top words and frequency since 2003";
-  }
-
-
+}

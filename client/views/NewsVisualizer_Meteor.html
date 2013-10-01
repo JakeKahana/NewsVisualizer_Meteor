@@ -1,101 +1,144 @@
 <head>
   <title>NewsVisualizer</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
+  
 </head>
 
 <body>
-	<div id="topbar"><p><span class="title">Today's<strong>word </strong>|</span><span class="subhead"> what’s the most used word in the news today?</span></p></div>
+	<div id="topbar">
+		<p><a href="backtotoday()" class="title">Today's<strong>word </strong>|</a>
+		<span class="subhead"> what’s the most used word in the news today?</span></p>
+	</div>
+	
 	<div id="container">
-
   		{{> today}}
   		{{> newdate}}
   		{{> trends}}
   		{{> newword}}
   		{{> buttons}}
 	</div>	
+
 </body>
 
 <template name="today">
-<div id="today">
-	<div id="date" class="date">
-	{{thedate}}
+	<div id="today">
+		<div id="date" class="date">
+			{{wordofday.date}}
+		</div>
+
+		<span class="word">
+			{{wordofday.word}} 
+		</span> <br />
+
+		<span class="references">
+			{{wordofday.freqtoday}} mentions today
+		</span><br />
+
+		<span class="links">
+			<a href="{{wordofday.article}}">recent article</a>
+		</span><br />
 	</div>
-
-	<span class="word">
-	{{wordofday}} 
-	</span> <br />
-
-	<span class="references">
-	{{references}} 
-	</span><br />
-
-	<span class="links">
-	{{links}} 
-	</span><br />
-</div>
 </template>
 
 
 <template name="newdate">
-<div id="newdate">
-	<div id="date" class="newdate">
-	{{thedate}}
+	<div id="newdate">
+		<div id="date" class="newdate">
+			{{#if searcheddate}}
+				{{searcheddate.date}}
+			{{/if}}
+		</div>
+
+		<span class="newdateword">
+			{{#if searcheddate}}
+				{{searcheddate.word}} 
+			{{/if}}
+		</span> <br />
+
+		<span class="newreferences">
+			{{#if searcheddate}}
+				{{searcheddate.freqtoday}} references on {{searcheddate.date}}
+			{{else}}
+				that date didn't make sense to us	 
+			{{/if}}
+		</span><br />
+
+		<span class="newlinks">
+			{{#if searcheddate}}
+				<a href="{{searcheddate.article}} ">recent article</a>
+			{{else}}
+				try searching another date
+			{{/if}}
+		</span><br />
 	</div>
-
-	<span class="newword">
-	{{word}} 
-	</span> <br />
-
-	<span class="newreferences">
-	{{references}} 
-	</span><br />
-
-	<span class="newlinks">
-	{{links}} 
-	</span><br />
-</div>
 </template>
 
 <template name="newword">
-<div id="newword">
-	<div id="searchword" class="searchword">
-	{{searchedword}} 
+	<div id="newword">
+		<div id="searchword" class="searchdate">
+			{{#if searchedword}}
+				everything you need to know about {{searchedword.word}}
+			{{/if}}
+		</div>
+
+		<span class="searchword">
+			{{#if searchedword}}
+				{{searchedword.word}}
+			{{else}}
+				Oops!
+			{{/if}}
+		</span> <br />
+
+		<span class="searchreferences">
+			{{#if searchedword}}
+				{{searchedword.freqtotal}} mentions in the last 15 years
+			{{else}}
+				that word doesn't make sense to us
+			{{/if}}
+		</span><br />
+
+		<span class="searchlinks">
+			{{# if searchedword}}
+				<a href="{{searchedword.article}}">recent article</a>
+			{{else}}
+				try searching another word
+			{{/if}}
+		</span>
 	</div>
-
-	<span class="searchedword">
-	{{word}} 
-	</span> <br />
-
-	<span class="newreferences">
-	{{references}} 
-	</span><br />
-
-	<span class="newlinks">
-	{{links}} 
-	</span><br />
-</div>
 </template>
 
 <template name="trends">
-<div id="trends">
-	<div id="trendate" class="trendate">
-	{{thedate}}
-	</div>
+	<div id="trends">
+		<div id="trendate" class="trendate">
+			{{thedate}}
+		</div>
 
-	<span class="trendword">
-	{{listofwords}} 
-	</span> <br /><br /><br />
-</div>
+		{{#each listofwords}}
+			<span class="trendword">
+				{{word}} 	
+			</span>
+			<span class="trendfreq">
+				{{freqtotal}}
+			</span><br />
+	    {{/each}}
+
+		 <br /><br /><br />
+	</div>
 </template>
 
 
 <template name="buttons">
 	<div class="bottombutton" id="jumptodate">
-			<span class="jump">jump to date:</span> 
+			<span class="jump">
+				jump to date:
+			</span> 
 			<input id="dates" type="text" value="january 1, 2000" class="jumptodate">
 	  	</div>
 		<div class="bottombutton">
-			<span class="jump">jump to word:</span><input type="text" value="type word here" class="jumptoword">		
+			<span class="jump">
+				jump to word:
+			</span>
+			<input type="text" value="type word here" class="jumptoword" id="somenewword">		
 		</div>
 		<div class="bottombutton">
 			<a href="#" id="trendbtn">trends</a>
