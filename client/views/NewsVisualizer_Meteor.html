@@ -6,8 +6,14 @@
 
 <body>
 	<div id="topbar">
-		<p><a href="backtotoday()" class="title">Today's<strong>word </strong>|</a>
-		<span class="subhead"> what’s the most used word in the news today?</span></p>
+		<p>
+			<a href="backtotoday()" class="title">
+				Today's<strong>word </strong>|
+			</a>
+			<span class="subhead"> 
+				what’s the most used word in the news today?
+			</span>
+		</p>
 	</div>
 	
 	<div id="container">
@@ -23,7 +29,7 @@
 <template name="today">
 	<div id="today">
 		<div id="date" class="date">
-			{{wordofday.date}}
+			today is {{wordofday.date}}
 		</div>
 
 		<span class="word">
@@ -31,7 +37,7 @@
 		</span> <br />
 
 		<span class="references">
-			{{wordofday.freqtoday}} mentions today
+			{{wordofday.frequency}} mentions today
 		</span><br />
 
 		<span class="links">
@@ -57,7 +63,7 @@
 
 		<span class="newreferences">
 			{{#if searcheddate}}
-				{{searcheddate.freqtoday}} references on {{searcheddate.date}}
+				{{searcheddate.frequency}} references on {{searcheddate.date}}
 			{{else}}
 				that date didn't make sense to us	 
 			{{/if}}
@@ -77,7 +83,7 @@
 	<div id="newword">
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
-				everything you need to know about {{searchedword.word}}
+				everything you need to know about <a href="#">{{searchedword.word}}</a>
 			{{/if}}
 		</div>
 
@@ -91,7 +97,7 @@
 
 		<span class="searchreferences">
 			{{#if searchedword}}
-				{{searchedword.freqtotal}} mentions in the last 15 years
+				{{searchedword.frequency}} mentions since october 9, 2013
 			{{else}}
 				that word doesn't make sense to us
 			{{/if}}
@@ -129,18 +135,18 @@
 
 <template name="buttons">
 	<div class="bottombutton" id="jumptodate">
-			<span class="jump">
-				jump to date:
-			</span> 
-			<input id="dates" type="text" value="january 1, 2000" class="jumptodate">
-	  	</div>
-		<div class="bottombutton">
-			<span class="jump">
-				jump to word:
-			</span>
-			<input type="text" value="type word here" class="jumptoword" id="somenewword">		
-		</div>
-		<div class="bottombutton">
-			<a href="#" id="trendbtn">trends</a>
-		</div>
+		<span class="jump">
+			jump to date:
+		</span> 
+		<input id="dates" type="text" value="january 1, 2000" class="jumptodate">
+	</div>
+	<div class="bottombutton">
+		<span class="jump">
+			jump to word:
+		</span>
+		<input type="text" value="type word here" class="jumptoword" id="somenewword">		
+	</div>
+	<div class="bottombutton">
+		<a href="#" id="trendbtn">trends</a>
+	</div>
 </template>

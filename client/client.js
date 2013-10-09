@@ -1,12 +1,3 @@
-//BUGS:
-
-// 2. trends 
-//     Overflow scroll?
-
-// 3. reference links to be links
-
-
-
 var currenttemplate = "today";
 
 //getting today's date
@@ -98,7 +89,7 @@ Template.buttons.events({
 Template.buttons.rendered = function(){
   $("#dates").datepicker({
     format: "MM d, yyyy",
-    autoclose: true,
+    autoclose: true
   }).on('changeDate', function(e){
     changeDates();
   });
@@ -131,13 +122,13 @@ Template.buttons.events({
 });
 
 Template.today.wordofday = function(){
-  var todaysdate = Words.findOne({date: displaydate});
+  var todaysdate = Words.findOne({date: displaydate}, {sort: {frequency: -1}, limit: 1})
   return todaysdate;
 }
 
 Template.newdate.searcheddate = function(){
   var anewdate = Session.get("anewdate");
-  var wordInfo = Words.findOne({date: anewdate});
+  var wordInfo = Words.findOne({date: anewdate}, {sort: {frequency: -1}, limit: 5});
   return wordInfo;
 }
 
@@ -146,16 +137,22 @@ Template.newword.searchedword = function(){
   var anewword = Session.get("anewword");
   var wordInfo = Words.findOne({word: anewword});
   return wordInfo;
+
+  // var uses = 0;
+  // var totalused = Words.find({word: anewword};
+  // totalused.forEach(function(){
+  // uses += this.frequency;
+  // });
 }
 
 
 Template.trends.listofwords = function(){
-    return Words.find();
+    return Words.find({}, {sort: {frequency: -1}, limit: 25});
 }
 
 Template.trends.trendfreq = function(){
     return "frequency";
 }
 Template.trends.thedate = function(){
-    return "top words and frequency since 2003";
+    return "top words in the news";
 }

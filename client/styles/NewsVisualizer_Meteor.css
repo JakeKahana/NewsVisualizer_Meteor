@@ -55,7 +55,7 @@ body{
 #today{
 	display: block;
 	margin-top: 90px;
-	margin-bottom: 80px;
+	margin-bottom: 92px;
 	text-align: center;	
 
 }
@@ -63,7 +63,6 @@ body{
 a {
 	background-color: #000;
 	color: #fff;
-	font-family: 'Lato', sans-serif;
 	text-transform: lowercase;
 	text-decoration: none;
 	font-size: 0.8em;
@@ -80,8 +79,12 @@ a:visited{
 	text-align: center;
 	width: 265px;
 	height:30px;
-	padding-top: 10px;
+	padding-top: 15px;
 	margin-top: 62px;
+}
+input {
+	text-align: center;
+	padding: 2px;
 }
 
 .jump{
@@ -91,9 +94,8 @@ a:visited{
 }
 
 .jumptodate {
-	background-color: #000;
+	background-color: #111;
 	color: #bbb;
-	font-family: 'Lato', sans-serif;
 	font-weight: 100;
 	text-transform: lowercase;
 	text-decoration: none;
@@ -104,9 +106,8 @@ a:visited{
 	border: 0px;
 }
 .jumptoword {
-	background-color: #000;
+	background-color: #111;
 	color: #bbb;
-	font-family: 'Lato', sans-serif;
 	font-weight: 100;
 	text-transform: lowercase;
 	text-decoration: none;
@@ -163,7 +164,7 @@ a:visited{
 #newdate{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 80px;
+	margin-bottom: 92px;
 	text-align: center;	
 }
 .newdateword {
@@ -210,7 +211,7 @@ a:visited{
 #newword{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 80px;
+	margin-bottom: 92px;
 	text-align: center;	
 }
 .searchword {
@@ -260,7 +261,7 @@ a:visited{
 #trends{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 80px;
+	margin-bottom: 92px;
 }
 .trendword {
 	color: #8dc5ff;
