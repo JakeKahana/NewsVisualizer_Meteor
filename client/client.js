@@ -1,13 +1,13 @@
-var currenttemplate = "today";
+Meteor.subscribe("fromtoday");
 
+
+var currenttemplate = "today";
 //getting today's date
 var monthNames = new Array(
 "january","february","march","april","may","june","july",
 "august","september","october", "november","december");
 var now = new Date();
 displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
-
-
 
 var backtotoday = function(){
     if(currenttemplate == "today"){
@@ -89,11 +89,15 @@ Template.buttons.events({
 Template.buttons.rendered = function(){
   $("#dates").datepicker({
     format: "MM d, yyyy",
-    autoclose: true
+    autoclose: true,
+    startDate: new Date(2013, 9, 11)
   }).on('changeDate', function(e){
     changeDates();
-  });
+  })
+  $("#dates").val(displaydate);
+
 };
+
 
 Template.buttons.events({
   'change #somenewword': function(){
@@ -117,7 +121,9 @@ Template.buttons.events({
         null;
     }
     currenttemplate = "newword";
-    Session.set("anewword", $( "#somenewword" ).val().toLowerCase())
+    var selectedword = $( "#somenewword" ).val().toLowerCase()
+    Session.set("anewword", selectedword);
+    Meteor.subscribe("wordsubset", selectedword);
   }
 });
 
@@ -136,13 +142,15 @@ Template.newdate.searcheddate = function(){
 Template.newword.searchedword = function(){
   var anewword = Session.get("anewword");
   var wordInfo = Words.findOne({word: anewword});
+  if(wordInfo){
+    wordInfo.uses = 0;
+    var totalused = Words.find({word: anewword});
+      totalused.forEach(function(word){
+      wordInfo.uses += word.frequency;
+    });
+  }
   return wordInfo;
 
-  // var uses = 0;
-  // var totalused = Words.find({word: anewword};
-  // totalused.forEach(function(){
-  // uses += this.frequency;
-  // });
 }
 
 

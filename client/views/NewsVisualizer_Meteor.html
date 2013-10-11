@@ -43,6 +43,9 @@
 		<span class="links">
 			<a href="{{wordofday.article}}">recent article</a>
 		</span><br />
+<!-- 		Insert Graph -->
+		<div id="holder"></div>
+
 	</div>
 </template>
 
@@ -83,7 +86,7 @@
 	<div id="newword">
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
-				everything you need to know about <a href="#">{{searchedword.word}}</a>
+				everything you need to know about <a href="#">{{searchedword.word}}</a> 
 			{{/if}}
 		</div>
 
@@ -97,7 +100,7 @@
 
 		<span class="searchreferences">
 			{{#if searchedword}}
-				{{searchedword.frequency}} mentions since october 9, 2013
+				{{searchedword.uses}} mentions since this site was created
 			{{else}}
 				that word doesn't make sense to us
 			{{/if}}
@@ -138,7 +141,7 @@
 		<span class="jump">
 			jump to date:
 		</span> 
-		<input id="dates" type="text" value="january 1, 2000" class="jumptodate">
+		<input id="dates" type="text" value=" " class="jumptodate">
 	</div>
 	<div class="bottombutton">
 		<span class="jump">
