@@ -9,12 +9,33 @@ var monthNames = new Array(
 var now = new Date();
 displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
-var backtotoday = function(){
-    if(currenttemplate == "today"){
-        $("#today").fadeOut(300, function(){
-        $("#today").fadeIn(300);
-        })
-    }else if(currenttemplate == "newdate"){
+Template.header.events({
+  'click #getaboutpage': function(){
+      if(currenttemplate == "today"){
+          $("#today").fadeOut(300, function(){
+          $("#about").fadeIn(300);
+          })
+      }else if(currenttemplate == "newdate"){
+          $("#newdate").fadeOut(300, function(){
+          $("#about").fadeIn(300);
+          })
+      }else if(currenttemplate == "newword"){
+          $("#newword").fadeOut(300, function(){
+          $("#about").fadeIn(300);
+          })
+      }else if(currenttemplate == "trends"){
+          $("#trends").fadeOut(300, function(){
+          $("#about").fadeIn(300);
+          })
+      }else {
+          null;
+      }
+    currenttemplate = "about";
+  }
+});
+Template.header.events({
+  'click #backtotoday': function(){
+    if(currenttemplate == "newdate"){
         $("#newdate").fadeOut(300, function(){
         $("#today").fadeIn(300);
         })
@@ -26,11 +47,16 @@ var backtotoday = function(){
         $("#newword").fadeOut(300, function(){
         $("#today").fadeIn(300);
         })
+    }else if(currenttemplate == "about"){
+        $("#about").fadeOut(300, function(){
+        $("#today").fadeIn(300);
+        })
     }else {
         null;
     }
-  currenttemplate = "today";
-}
+    currenttemplate = "today";
+  }
+});
 
 
 Template.buttons.events({
@@ -43,12 +69,12 @@ Template.buttons.events({
           $("#newdate").fadeOut(300, function(){
           $("#trends").fadeIn(300);
           })
-      }else if(currenttemplate == "trends"){
-          $("#trends").fadeOut(300, function(){
-          $("#trends").fadeIn(300);
-          })
       }else if(currenttemplate == "newword"){
           $("#newword").fadeOut(300, function(){
+          $("#trends").fadeIn(300);
+          })
+      }else if(currenttemplate == "about"){
+          $("#about").fadeOut(300, function(){
           $("#trends").fadeIn(300);
           })
       }else {
@@ -63,10 +89,6 @@ function changeDates(){
       $("#today").fadeOut(300, function(){
         $("#newdate").fadeIn(300);
       });
-    }else if(currenttemplate == "newdate"){
-      $("#newdate").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
-      });
     }else if(currenttemplate == "trends"){
       $("#trends").fadeOut(300, function(){
         $("#newdate").fadeIn(300);
@@ -75,6 +97,12 @@ function changeDates(){
       $("#newword").fadeOut(300, function(){
         $("#newdate").fadeIn(300);
       });
+    }else if(currenttemplate == "about"){
+        $("#about").fadeOut(300, function(){
+        $("#newdate").fadeIn(300);
+      });
+    }else {
+        null;
     }
   currenttemplate = "newdate";
   Session.set("anewdate", $( "#dates" ).val().toLowerCase());
@@ -113,8 +141,8 @@ Template.buttons.events({
         $("#trends").fadeOut(300, function(){
         $("#newword").fadeIn(300);
         })
-    }else if(currenttemplate == "newword"){
-        $("#newword").fadeOut(300, function(){
+    }else if(currenttemplate == "about"){
+        $("#about").fadeOut(300, function(){
         $("#newword").fadeIn(300);
         })
     }else {
@@ -134,7 +162,7 @@ Template.today.wordofday = function(){
 
 Template.newdate.searcheddate = function(){
   var anewdate = Session.get("anewdate");
-  var wordInfo = Words.findOne({date: anewdate}, {sort: {frequency: -1}, limit: 5});
+  var wordInfo = Words.find({date: anewdate}, {sort: {frequency: -1}, limit: 5});
   return wordInfo;
 }
 
@@ -150,7 +178,6 @@ Template.newword.searchedword = function(){
     });
   }
   return wordInfo;
-
 }
 
 
@@ -158,9 +185,4 @@ Template.trends.listofwords = function(){
     return Words.find({}, {sort: {frequency: -1}, limit: 25});
 }
 
-Template.trends.trendfreq = function(){
-    return "frequency";
-}
-Template.trends.thedate = function(){
-    return "top words in the news";
-}
+

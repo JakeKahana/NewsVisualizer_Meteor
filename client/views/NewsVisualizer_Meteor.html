@@ -1,22 +1,14 @@
 <head>
   <title>NewsVisualizer</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
-  
+  <script type="text/javascript">stLight.options({publisher: "3590be9f-5c93-479f-9c1b-9e62b6696b67", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+
 </head>
 
 <body>
-	<div id="topbar">
-		<p>
-			<a href="backtotoday()" class="title">
-				Today's<strong>word </strong>|
-			</a>
-			<span class="subhead"> 
-				what’s the most used word in the news today?
-			</span>
-		</p>
-	</div>
-	
+  		{{> header}}
 	<div id="container">
+  		{{> about}}
   		{{> today}}
   		{{> newdate}}
   		{{> trends}}
@@ -25,6 +17,38 @@
 	</div>	
 
 </body>
+<template name="header">
+	<div id="header"> 
+		<div id="title">
+			<a href="#" id="backtotoday" class="title">
+				Today's<strong>word </strong>|
+			</a>
+			<span class="subhead"> 
+				what’s the most used word in the news today?
+			</span>	
+			<div id="sharebtn">	
+				<span class="subhead">
+					<a href="#" id="getaboutpage">about</a> &nbsp; &nbsp;| &nbsp;&nbsp;share
+				</span>
+					<span class='st_twitter'></span>
+					<span class='st_facebook'></span>
+					<span class='st_googleplus'></span>
+			</div>	
+		</div>
+	</div>
+</template>
+
+<template name ="about">
+	<div id="about">
+		<div id="abouttop">
+			About The Site
+		</div>
+		<div id="aboutcontent">
+			This is the stuff about the site
+		</div>
+	</div>
+</template>
+
 
 <template name="today">
 	<div id="today">
@@ -38,10 +62,6 @@
 
 		<span class="references">
 			{{wordofday.frequency}} mentions today
-		</span><br />
-
-		<span class="links">
-			<a href="{{wordofday.article}}">recent article</a>
 		</span><br />
 <!-- 		Insert Graph -->
 		<div id="holder"></div>
@@ -68,15 +88,8 @@
 			{{#if searcheddate}}
 				{{searcheddate.frequency}} references on {{searcheddate.date}}
 			{{else}}
-				that date didn't make sense to us	 
-			{{/if}}
-		</span><br />
-
-		<span class="newlinks">
-			{{#if searcheddate}}
-				<a href="{{searcheddate.article}} ">recent article</a>
-			{{else}}
-				try searching another date
+				that date didn't make sense to us <br />
+				search again 
 			{{/if}}
 		</span><br />
 	</div>
@@ -102,33 +115,23 @@
 			{{#if searchedword}}
 				{{searchedword.uses}} mentions since this site was created
 			{{else}}
-				that word doesn't make sense to us
+				that word doesn't make sense to us <br />
+				search another word
 			{{/if}}
 		</span><br />
-
-		<span class="searchlinks">
-			{{# if searchedword}}
-				<a href="{{searchedword.article}}">recent article</a>
-			{{else}}
-				try searching another word
-			{{/if}}
-		</span>
 	</div>
 </template>
 
 <template name="trends">
 	<div id="trends">
 		<div id="trendate" class="trendate">
-			{{thedate}}
+			top words of all time
 		</div>
 
 		{{#each listofwords}}
 			<span class="trendword">
-				{{word}} 	
+				{{word}} 	<br />
 			</span>
-			<span class="trendfreq">
-				{{freqtotal}}
-			</span><br />
 	    {{/each}}
 
 		 <br /><br /><br />
@@ -150,6 +153,6 @@
 		<input type="text" value="type word here" class="jumptoword" id="somenewword">		
 	</div>
 	<div class="bottombutton">
-		<a href="#" id="trendbtn">trends</a>
+		<a href="#" id="trendbtn">leaderboard</a>
 	</div>
 </template>
