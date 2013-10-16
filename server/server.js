@@ -1,7 +1,15 @@
 
 Meteor.startup(function () {
+
+var monthNames = new Array(
+"january","february","march","april","may","june","july",
+"august","september","october", "november","december");
+var now = new Date();
+displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+
+//get data from BBC
   HTTP.get('http://www.bbc.co.uk', function(err, result){
-  
 	//create the date
     var monthNames = new Array(
 	"january","february","march","april","may","june","july",
@@ -10,7 +18,6 @@ Meteor.startup(function () {
 	displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
 	//strip content and put into an array of single words
-	console.log('news server responded: ', result ? result.status : 'no it did not');
     var testcontent = stripUnwantedText(result.content);
   	testcontent = testcontent.toLowerCase();
     var wordlist = testcontent.split(" ");
@@ -25,7 +32,6 @@ Meteor.startup(function () {
 		    		word: wordlist[i],
 		    		date: displaydate,
 		    		frequency: 1,
-		    		article: "#"
 		    	}
 	    	}
 	    }
@@ -41,11 +47,134 @@ Meteor.startup(function () {
 			Words.insert(word)
 		}
 	});		
+});
+//get data from AlJazeera
+  HTTP.get('http://america.aljazeera.com/', function(err, result){
+    //create the date
+    var monthNames = new Array(
+    "january","february","march","april","may","june","july",
+    "august","september","october", "november","december");
+    var now = new Date();
+    displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
-	var todaysword = Words.find({date: displaydate}, {sort: {frequency: -1}, limit: 10})
-	console.log(todaysword.fetch())
+    //strip content and put into an array of single words
+    var testcontent = stripUnwantedText(result.content);
+    testcontent = testcontent.toLowerCase();
+    var wordlist = testcontent.split(" ");
+
+    var processedWords = {};
+    for(i = 0; i < wordlist.length; i ++){
+        if(processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != ""){
+            if(processedWords[wordlist[i]]){
+                processedWords[wordlist[i]].frequency += 1;
+            }else{
+                processedWords[wordlist[i]] = {
+                    word: wordlist[i],
+                    date: displaydate,
+                    frequency: 1,
+                }
+            }
+        }
+    };
+
+    _.each(processedWords, function(word, wordName){
+        // if we already have a item with the same word and date, update it
+        if(Words.findOne({word: wordName, date: word.date})){
+            Words.update({word: wordName, date: word.date}, {$set: {frequency: word.frequency}});
+        }
+        // otherwise just insert our new item
+        else{
+            Words.insert(word)
+        }
+    });     
 });
 
+
+
+//get data from NYT
+  HTTP.get('http://www.nytimes.com', function(err, result){
+    //create the date
+    var monthNames = new Array(
+    "january","february","march","april","may","june","july",
+    "august","september","october", "november","december");
+    var now = new Date();
+    displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+    //strip content and put into an array of single words
+    var testcontent = stripUnwantedText(result.content);
+    testcontent = testcontent.toLowerCase();
+    var wordlist = testcontent.split(" ");
+
+    var processedWords = {};
+    for(i = 0; i < wordlist.length; i ++){
+        if(processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != ""){
+            if(processedWords[wordlist[i]]){
+                processedWords[wordlist[i]].frequency += 1;
+            }else{
+                processedWords[wordlist[i]] = {
+                    word: wordlist[i],
+                    date: displaydate,
+                    frequency: 1,
+                }
+            }
+        }
+    };
+
+    _.each(processedWords, function(word, wordName){
+        // if we already have a item with the same word and date, update it
+        if(Words.findOne({word: wordName, date: word.date})){
+            Words.update({word: wordName, date: word.date}, {$set: {frequency: word.frequency}});
+        }
+        // otherwise just insert our new item
+        else{
+            Words.insert(word)
+        }
+    });     
+});
+
+//get data from Reuters
+  HTTP.get('http://www.reuters.com/', function(err, result){
+    //create the date
+    var monthNames = new Array(
+    "january","february","march","april","may","june","july",
+    "august","september","october", "november","december");
+    var now = new Date();
+    displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+    //strip content and put into an array of single words
+    var testcontent = stripUnwantedText(result.content);
+    testcontent = testcontent.toLowerCase();
+    var wordlist = testcontent.split(" ");
+
+    var processedWords = {};
+    for(i = 0; i < wordlist.length; i ++){
+        if(processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != ""){
+            if(processedWords[wordlist[i]]){
+                processedWords[wordlist[i]].frequency += 1;
+            }else{
+                processedWords[wordlist[i]] = {
+                    word: wordlist[i],
+                    date: displaydate,
+                    frequency: 1,
+                }
+            }
+        }
+    };
+
+    _.each(processedWords, function(word, wordName){
+        // if we already have a item with the same word and date, update it
+        if(Words.findOne({word: wordName, date: word.date})){
+            Words.update({word: wordName, date: word.date}, {$set: {frequency: word.frequency}});
+        }
+        // otherwise just insert our new item
+        else{
+            Words.insert(word)
+        }
+    });     
+});
+
+var todaysword = Words.find({date: displaydate}, {sort: {frequency: -1}, limit: 20});
+console.log(todaysword.fetch());
 
 function stripUnwantedText(html){
     var bodyRegex = /<body[^>]*>((.|[\n\r])*)<\/body>/im
@@ -80,6 +209,7 @@ function stripUnwantedText(html){
         'ago',
         'ahead',
         'aint',
+        'al',
         'all',
         'allow',
         'allows',
@@ -91,6 +221,7 @@ function stripUnwantedText(html){
         'also',
         'although',
         'always',
+        'alt',
         'am',
         'amid',
         'amidst',
@@ -111,6 +242,7 @@ function stripUnwantedText(html){
         'appear',
         'appreciate',
         'appropriate',
+        'april',
         'are',
         'arent',
         'around',
@@ -122,6 +254,7 @@ function stripUnwantedText(html){
         'association',
         'associated',
         'at',
+        'august',
         'available',
         'away',
         'awfully',
@@ -194,6 +327,7 @@ function stripUnwantedText(html){
         'dare',
         'darent',
         'de',
+        'december', 
         'definitely',
         'described',
         'despite',
@@ -212,6 +346,7 @@ function stripUnwantedText(html){
         'during',
         'e',
         'each',
+        'ed',
         'edu',
         'eg',
         'eight',
@@ -292,6 +427,7 @@ function stripUnwantedText(html){
         'having',
         'he',
         'hed',
+        'height',
         'hell',
         'hello',
         'help',
@@ -315,6 +451,7 @@ function stripUnwantedText(html){
         'how',
         'howbeit',
         'however',
+        'http', 
         'hundred',
         'i',
         'id',
@@ -337,6 +474,7 @@ function stripUnwantedText(html){
         'inside',
         'insofar',
         'instead',
+        'international', 
         'into',
         'inward',
         'is',
@@ -349,6 +487,9 @@ function stripUnwantedText(html){
         'itself',
         'ive',
         'j',
+        'jazeera',
+        'june',
+        'july',
         'just',
         'k',
         'keep',
@@ -363,7 +504,7 @@ function stripUnwantedText(html){
         'later',
         'latter',
         'latterly',
-         'le',
+        'le',
         'least',
         'less',
         'lest',
@@ -387,6 +528,7 @@ function stripUnwantedText(html){
         'make',
         'makes',
         'many',
+        'march',
         'max',
         'may',
         'maybe',
@@ -454,6 +596,7 @@ function stripUnwantedText(html){
         'nyt',
         'o',
         'obviously',
+        'october',
         'of',
         'off',
         'often',
@@ -520,6 +663,8 @@ function stripUnwantedText(html){
         'regards',
         'relatively',
         'respectively',
+        'reuters',
+        'reutersmedia',
         'review',
         'reviews',
         'right',
@@ -547,6 +692,7 @@ function stripUnwantedText(html){
         'selves',
         'sensible',
         'sent',
+        'september',
         'serious',
         'seriously',
         'seven',
@@ -653,6 +799,7 @@ function stripUnwantedText(html){
         'to',
         'together',
         'top',
+        'topics', 
         'too',
         'took',
         'toward',
@@ -694,6 +841,7 @@ function stripUnwantedText(html){
         'versus',
         'very',
         'via',
+        'video',
         'viz',
         'vs',
         'w',
@@ -745,6 +893,7 @@ function stripUnwantedText(html){
         'whos',
         'whose',
         'why',
+        'width',
         'will',
         'willing',
         'wish',
@@ -760,6 +909,7 @@ function stripUnwantedText(html){
         'y',
         'yes',
         'yet',
+        'york', 
         'you',
         'youd',
         'youll',
@@ -797,9 +947,10 @@ Meteor.publish("fromtoday", function () {
 	"august","september","october", "november","december");
 	var now = new Date();
 	displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
-  return Words.find({date: displaydate}, {sort: {frequency: -1}, limit: 5});
+    return Words.find({date: displaydate}, {sort: {frequency: -1}, limit: 10});
 });
+    
 Meteor.publish("wordsubset", function (arg) {
-  return Words.find({word: arg});
+return Words.find({word: arg});
 });
 

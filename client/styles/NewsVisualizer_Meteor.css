@@ -6,6 +6,8 @@ body{
 	font-weight: 100;
 	margin: 0px;
 	padding: 0px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 #header {
 	background-color: #000000;
@@ -14,9 +16,11 @@ body{
 	margin: 0px;
 	position: absolute;
 	top: 0px;
+	vertical-align: middle;
 }
 #title{
 	margin-top: 10px;
+	vertical-align: middle;
 
 }
 
@@ -31,6 +35,8 @@ body{
 
 #sharebtn span{
 	margin: 3px;
+	vertical-align: middle;
+
 }
 
 
@@ -40,6 +46,7 @@ body{
 	font-size: 1.6em;
 	margin-top: 15px;
 	margin-left: 20px;
+	vertical-align: middle;
 
 }
 
@@ -51,9 +58,11 @@ body{
 	color: #fff;
 	text-transform: lowercase;
 	font-style: italic;
-	font-size: 1.3em;
+	font-size: .9em;
 	margin-top: 15px;
 	margin-left: 20px;
+	vertical-align: middle;
+
 }
 
 
@@ -76,37 +85,60 @@ body{
 #about{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 92px;
-	text-align: center;	
-
+	margin-bottom: 5px;		
+	height: 400px;
+	text-align: center;
 }
-
-#abouttop {
-
+.aboutdate {		
+	color: #fff;
+	text-transform: lowercase;
+	font-size: .9em;
+	text-align: center;
+	background-color: #191919;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
-
-#aboutcontent {
-	
+.aboutcontent{
+	color: #fff;
+	font-size: 2em;
+	text-transform: lowercase;
+	text-align: center;
+	padding: 10px;
 }
-
+.aboutcontent img{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 25px;
+}
+.aboutcredits{
+	color: #fff;
+	font-size:.5em;
+	font-style: italic;
+	padding: 10px;
+	margin-top: 25px;
+}
+.aboutcredits a{
+	color: #fff;
+}
+.aboutcredits a:hover{
+	color: #BFF839;
+}
 #today{
 	display: block;
 	margin-top: 90px;
-	margin-bottom: 92px;
-	text-align: center;	
-
+	margin-bottom: 5px;		
+	height: 400px;
+	text-align: center;
 }
 
 a {
-	background-color: #000;
-	color: #fff;
 	text-transform: lowercase;
 	text-decoration: none;
 }
 
 a:visited{
 	text-decoration: none;
-	color: #fff;
+	color: inherit;
 }
 
 .bottombutton{
@@ -115,19 +147,23 @@ a:visited{
 	text-align: center;
 	width: 265px;
 	height:30px;
-	padding-top: 15px;
-	margin-top: 62px;
+	padding-top: 13px;
 	font-size: 0.8em;
-
 }
+
+#trendbtn {
+	font-size: 1.4em;
+}
+
 input {
 	text-align: center;
 	padding: 2px;
+	font-size: 1em;
 }
 
 .jump{
-	margin-left: 50px;	
-	font-size: 0.8em;
+	margin-left: 10px;	
+	font-size: 1.4em;
 
 }
 
@@ -137,7 +173,7 @@ input {
 	font-weight: 100;
 	text-transform: lowercase;
 	text-decoration: none;
-	font-size: 0.8em;
+	font-size: 1em;
 	text-align: left;
 	margin-left: 5px;
 	margin-right: 5px;
@@ -149,18 +185,17 @@ input {
 	font-weight: 100;
 	text-transform: lowercase;
 	text-decoration: none;
-	font-size: 0.8em;
+	font-size: 1em;
 	text-align: left;
 	margin-left: 5px;
 	margin-right: 5px;
 	border: 0px;
 }
 
-
 .word {
 	color: #e68dff;
 	text-transform: lowercase;
-	font-size: 13em;
+	font-size: 11em;	
 	text-align: center;
 	margin: 15px;
 }
@@ -168,12 +203,12 @@ input {
 .date {		
 	color: #e68dff;
 	text-transform: lowercase;
-	font-size: .9em;
+	font-size: 1.4em;
 	text-align: center;
-
 	background-color: #191919;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	margin-bottom: 65px;
 }
 .references{
 	color: #e68dff;
@@ -182,33 +217,18 @@ input {
 	text-align: center;
 
 }
-.links {
-	color: #e68dff;
-}
-.links a{
-	color: #e68dff;
-	font-size: .9em;
-	text-transform: lowercase;
-	text-align: center;
-	text-decoration: none;
-}
-.links a:hover{
-	color: #f0d2f8;
-}
-.links a:visited{
-	color: #e68dff;
-}
 
 #newdate{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 92px;
-	text-align: center;	
+	margin-bottom: 5px;		
+	height: 400px;
+	text-align: center;
 }
 .newdateword {
 	color: #eeff8d;
 	text-transform: lowercase;
-	font-size: 13em;
+	font-size: 11em;	
 	text-align: center;
 	margin: 15px;
 }
@@ -216,11 +236,12 @@ input {
 .newdate {
 	color: #eeff8d;
 	text-transform: lowercase;
-	font-size: .9em;
+	font-size: 1.4em;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	margin-bottom: 65px;
 
 }
 
@@ -230,44 +251,35 @@ input {
 	text-transform: lowercase;
 	text-align: center;
 }
-.newlinks {
-	color: #eeff8d;
-}
-.newlinks a{
-	color: #eeff8d;
-	font-size: .9em;
-	text-transform: lowercase;
-	text-align: center;
-}
-.newlinks a:hover{
-	color: #f3facb;
-}
-.newlinks a:visited{
-	color: #eeff8d;
-}
+
 
 #newword{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 92px;
-	text-align: center;	
+	margin-bottom: 5px;		
+	height: 400px;
+	text-align: center;
 }
 .searchword {
 	color: #8cf998;
 	text-transform: lowercase;
-	font-size: 13em;
+	font-size: 11em;	
 	text-align: center;
 	margin: 15px;
 }
-
+.highlighted{
+	color: #C5FACB;
+	text-transform: uppercase;
+}
 .searchdate {
 	color: #8cf998;
 	text-transform: lowercase;
-	font-size: .9em;
+	font-size: 1.4em;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	margin-bottom: 65px;
 
 }
 
@@ -276,30 +288,19 @@ input {
 	font-size: .9em;
 	text-transform: lowercase;
 	text-align: center;
-
-}
-.searchlinks{
-	color: #8cf998;	
-}
-.searchlinks a{
-	color: #8cf998;
-	font-size: .9em;
-	text-transform: lowercase;
-	text-align: center;
-}
-
-.searchlinks a:hover{
-	color: #d5fad9;
-}
-.searchlinks a:visited{
-	color: #8cf998;
 }
 
 
 #trends{
 	display: none;
 	margin-top: 90px;
-	margin-bottom: 92px;
+	margin-bottom: 5px;		
+	height: 400px;
+	text-align: center;
+}
+#trendword{
+	overflow: scroll;
+	height: 295px;
 }
 .trendword {
 	color: #8dc5ff;
@@ -312,7 +313,7 @@ input {
 .trendfreq {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: 2em;
+	font-size: 1.5em;
 	text-align: left;
 	margin: 15px;
 	overflow: scroll;
@@ -320,10 +321,42 @@ input {
 .trendate {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: .9em;
+	font-size: 1.4em;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
 	padding-bottom: 15px;
-
 }
+/*Graph*/
+#holder{
+	padding-top: 200px;
+}
+/*scrollbars*/
+::-webkit-scrollbar{
+	background-color: #000000;
+	margin: 1px;
+	width: 6px;
+	height: 10px;
+	padding-left: 3px;
+}         
+::-webkit-scrollbar-button{ 
+}
+::-webkit-scrollbar-track{
+	border-radius: 10px;
+}
+::-webkit-scrollbar-track-piece{
+}
+::-webkit-scrollbar-thumb{
+	background-color: #333333;
+	border-radius: 20px;
+	margin: 3px;
+	height: 10px;
+	width: 4px;
+	size: 10px; 
+}
+::-webkit-scrollbar-corner{
+	background-color: #000;
+}
+::-webkit-resizer {
+
+}  

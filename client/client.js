@@ -162,7 +162,7 @@ Template.today.wordofday = function(){
 
 Template.newdate.searcheddate = function(){
   var anewdate = Session.get("anewdate");
-  var wordInfo = Words.find({date: anewdate}, {sort: {frequency: -1}, limit: 5});
+  var wordInfo = Words.findOne({date: anewdate}, {sort: {frequency: -1}, limit: 1});
   return wordInfo;
 }
 
@@ -180,9 +180,44 @@ Template.newword.searchedword = function(){
   return wordInfo;
 }
 
+Template.newdate.events({
+  'click #tomorrow': function(){
+  alert("tomorrow")
+  var monthNames = new Array(
+    "january","february","march","april","may","june","july",
+    "august","september","october", "november","december");
+  var selecteddate = document.getElementById("dates").value.toLowerCase();
+  var losecomma = /[,]\s/g;
+  selecteddate = selecteddate.replace(losecomma, ' ');
+  var updateddate = new Date(selecteddate);    
+  updateddate.setDate(updateddate.getDate() +1);
+  updateddate = monthNames[updateddate.getMonth()] + " " + updateddate.getDate() + ", " + updateddate.getFullYear();
+  document.getElementById("dates").value = updateddate;
+  Session.set("anewdate", updateddate);
+  changeDates();
+  }
+});
+
+Template.newdate.events({
+  'click #yesterday': function(){
+  alert("yesterday")
+  var monthNames = new Array(
+    "january","february","march","april","may","june","july",
+    "august","september","october", "november","december");
+  var selecteddate = document.getElementById("dates").value.toLowerCase();
+  var losecomma = /[,]\s/g;
+  selecteddate = selecteddate.replace(losecomma, ' ');
+  var updateddate = new Date(selecteddate);    
+  updateddate.setDate(updateddate.getDate() -1);
+  updateddate = monthNames[updateddate.getMonth()] + " " + updateddate.getDate() + ", " + updateddate.getFullYear();
+    $("#dates").val(updateddate);
+  Session.set("anewdate", $( "#dates" ).val().toLowerCase())
+  changeDates();
+}
+});
 
 Template.trends.listofwords = function(){
-    return Words.find({}, {sort: {frequency: -1}, limit: 25});
+    return Words.find({}, {sort: {frequency: -1}, limit: 10});
 }
 
 

@@ -1,6 +1,6 @@
 
 
-window.onload = function () {
+Meteor.startup(function () {
     // 1. do this on render of the template instead of onload
     // 2. calculate the values you want to use from the actual data (pulled from the Words collection)
     // 2a. frequencies
@@ -20,5 +20,4 @@ window.onload = function () {
     }, function () {
         this.marker && this.marker.hide();
     });
-};
-
+});

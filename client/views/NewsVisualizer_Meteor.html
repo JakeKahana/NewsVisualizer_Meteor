@@ -14,7 +14,8 @@
   		{{> trends}}
   		{{> newword}}
   		{{> buttons}}
-	</div>	
+	</div>
+	
 
 </body>
 <template name="header">
@@ -40,11 +41,17 @@
 
 <template name ="about">
 	<div id="about">
-		<div id="abouttop">
-			About The Site
+		<div id="abouttop" class="aboutdate">
+			about the site
 		</div>
-		<div id="aboutcontent">
-			This is the stuff about the site
+		<div id="aboutcontent" class="aboutcontent">
+			<p>
+				taking the content from the homepages of <br /> BBC, New York Times, Al Jazeera, and Reuters,<br /> we're limiting the news to the one word used most each day. <br />the site has been collecting data since october 19, 2013<br /> and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
+				<img src="../img/bbc.gif" height="24px"><img src="../img/nyt.gif" height="30px"><img src="../img/aljazeera.gif" height="30px"><img src="../img/reuters.gif" height="30px">
+			</p>
+			<p class="aboutcredits"> 
+				it was conceived of and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
+			</p>
 		</div>
 	</div>
 </template>
@@ -63,10 +70,11 @@
 		<span class="references">
 			{{wordofday.frequency}} mentions today
 		</span><br />
-<!-- 		Insert Graph -->
-		<div id="holder"></div>
-
+<!-- 		Insert Graph 
+	<div id="holder"></div>
+-->	
 	</div>
+
 </template>
 
 
@@ -74,13 +82,17 @@
 	<div id="newdate">
 		<div id="date" class="newdate">
 			{{#if searcheddate}}
+				<a href="#" id="yesterday"> &#8592; &nbsp; &nbsp; &nbsp; </a>
 				{{searcheddate.date}}
+				<a href="#" id="tomorrow"> &nbsp; &nbsp; &nbsp; &#8594; </a>
 			{{/if}}
 		</div>
 
 		<span class="newdateword">
 			{{#if searcheddate}}
 				{{searcheddate.word}} 
+			{{else}}
+				huh?!
 			{{/if}}
 		</span> <br />
 
@@ -92,6 +104,7 @@
 				search again 
 			{{/if}}
 		</span><br />
+
 	</div>
 </template>
 
@@ -99,7 +112,7 @@
 	<div id="newword">
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
-				everything you need to know about <a href="#">{{searchedword.word}}</a> 
+				everything you need to know about <span class="highlighted">{{searchedword.word}}</span> 
 			{{/if}}
 		</div>
 
@@ -107,7 +120,7 @@
 			{{#if searchedword}}
 				{{searchedword.word}}
 			{{else}}
-				Oops!
+				wtf?!
 			{{/if}}
 		</span> <br />
 
@@ -119,6 +132,7 @@
 				search another word
 			{{/if}}
 		</span><br />
+
 	</div>
 </template>
 
@@ -128,13 +142,22 @@
 			top words of all time
 		</div>
 
-		{{#each listofwords}}
-			<span class="trendword">
-				{{word}} 	<br />
-			</span>
-	    {{/each}}
-
-		 <br /><br /><br />
+		<div id="trendword">
+			<table>
+				{{#each listofwords}}
+					<tr>
+						<td>
+							<span class="trendword">
+								<a href="#" >{{word}}</a> 					
+							</span>
+						</td>
+						<td>
+							<span class="trendfreq"> {{frequency}} mentions </span>
+						</td>
+					</tr> 
+			    {{/each}}
+			</table>
+		</div>
 	</div>
 </template>
 

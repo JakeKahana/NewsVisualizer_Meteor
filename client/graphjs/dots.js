@@ -20,7 +20,7 @@ $(function () {
         leftgutter = 30,
         bottomgutter = 20,
         r = Raphael("chart", width, height),
-        txt = {"font": '10px Fontin-Sans, Arial', stroke: "none", fill: "#fff"},
+        txt = {"font": "9px 'Lato', sans-serif", stroke: "none", fill: "#fff"},
         X = (width - leftgutter) / axisx.length,
         Y = (height - bottomgutter) / axisy.length,
         color = $("#chart").css("color");
@@ -41,11 +41,11 @@ $(function () {
                     var color = "hsb(" + [(1 - R / max) * .5, 1, .75] + ")";
                     var dt = r.circle(dx + 60 + R, dy + 10, R).attr({stroke: "none", fill: color});
                     if (R < 6) {
-                        var bg = r.circle(dx + 60 + R, dy + 10, 6).attr({stroke: "none", fill: "#000", opacity: .4}).hide();
+                        var bg = r.circle(dx + 60 + R, dy + 10, 6).attr({stroke: "none", fill: "#191919", opacity: .4}).hide();
                     }
                     var lbl = r.text(dx + 60 + R, dy + 10, data[o])
-                            .attr({"font": '10px Fontin-Sans, Arial', stroke: "none", fill: "#fff"}).hide();
-                    var dot = r.circle(dx + 60 + R, dy + 10, max).attr({stroke: "none", fill: "#000", opacity: 0});
+                            .attr({"font": "9px 'Lato', sans-serif", stroke: "none", fill: "#fff"}).hide();
+                    var dot = r.circle(dx + 60 + R, dy + 10, max).attr({stroke: "none", fill: "#191919", opacity: 0});
                     dot[0].onmouseover = function () {
                         if (bg) {
                             bg.show();
