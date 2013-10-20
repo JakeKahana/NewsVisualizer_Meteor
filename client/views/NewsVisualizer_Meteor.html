@@ -1,6 +1,7 @@
 <head>
   <title>NewsVisualizer</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
   <script type="text/javascript">stLight.options({publisher: "3590be9f-5c93-479f-9c1b-9e62b6696b67", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
 
 </head>
@@ -22,7 +23,7 @@
 	<div id="header"> 
 		<div id="title">
 			<a href="#" id="backtotoday" class="title">
-				Today's<strong>word </strong>|
+				News<strong>Wordy </strong>|
 			</a>
 			<span class="subhead"> 
 				what’s the most used word in the news today?
@@ -46,11 +47,11 @@
 		</div>
 		<div id="aboutcontent" class="aboutcontent">
 			<p>
-				taking the content from the homepages of <br /> BBC, New York Times, Al Jazeera, and Reuters,<br /> we're limiting the news to the one word used most each day. <br />the site has been collecting data since october 19, 2013<br /> and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
+				we're limiting the news to the one word used most each day. <br />taking the content from the homepages of <br /> BBC, New York Times, Al Jazeera, and Reuters,<br />the site has been collecting data since october 16, 2013<br /> and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
 				<img src="../img/bbc.gif" height="24px"><img src="../img/nyt.gif" height="30px"><img src="../img/aljazeera.gif" height="30px"><img src="../img/reuters.gif" height="30px">
 			</p>
 			<p class="aboutcredits"> 
-				it was conceived of and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
+				it was conceived and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
 			</p>
 		</div>
 	</div>
@@ -58,7 +59,8 @@
 
 
 <template name="today">
-	<div id="today">
+	<div id="today" class="current-page">
+		{{#isolate}}
 		<div id="date" class="date">
 			today is {{wordofday.date}}
 		</div>
@@ -70,6 +72,7 @@
 		<span class="references">
 			{{wordofday.frequency}} mentions today
 		</span><br />
+		{{/isolate}}
 <!-- 		Insert Graph 
 	<div id="holder"></div>
 -->	
@@ -81,11 +84,9 @@
 <template name="newdate">
 	<div id="newdate">
 		<div id="date" class="newdate">
-			{{#if searcheddate}}
 				<a href="#" id="yesterday"> &#8592; &nbsp; &nbsp; &nbsp; </a>
 				{{searcheddate.date}}
 				<a href="#" id="tomorrow"> &nbsp; &nbsp; &nbsp; &#8594; </a>
-			{{/if}}
 		</div>
 
 		<span class="newdateword">
@@ -110,6 +111,7 @@
 
 <template name="newword">
 	<div id="newword">
+		{{#isolate}}
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
 				everything you need to know about <span class="highlighted">{{searchedword.word}}</span> 
@@ -126,20 +128,21 @@
 
 		<span class="searchreferences">
 			{{#if searchedword}}
+				{{searchedword.frequency}} mentions today <br /><br />
 				{{searchedword.uses}} mentions since this site was created
 			{{else}}
 				that word doesn't make sense to us <br />
 				search another word
 			{{/if}}
 		</span><br />
-
+		{{/isolate}}
 	</div>
 </template>
 
 <template name="trends">
 	<div id="trends">
 		<div id="trendate" class="trendate">
-			top words of all time
+			word of the year
 		</div>
 
 		<div id="trendword">
@@ -173,9 +176,9 @@
 		<span class="jump">
 			jump to word:
 		</span>
-		<input type="text" value="type word here" class="jumptoword" id="somenewword">		
+		<input type="text" placeholder="type word here" class="jumptoword" id="somenewword">		
 	</div>
 	<div class="bottombutton">
-		<a href="#" id="trendbtn">leaderboard</a>
+		<a href="#" id="trendbtn">word of the year</a>
 	</div>
 </template>

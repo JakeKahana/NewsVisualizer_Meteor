@@ -1,7 +1,10 @@
-Meteor.subscribe("fromtoday");
+Meteor.subscribe("fromtoday", function(){
+  // this subscription is ready
+  $("#today").show().addClass('current-page');
+});
 
+Meteor.subscribe("mostused");
 
-var currenttemplate = "today";
 //getting today's date
 var monthNames = new Array(
 "january","february","march","april","may","june","july",
@@ -9,103 +12,41 @@ var monthNames = new Array(
 var now = new Date();
 displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
+// Meteor.startup(function(){
+//   $("#today").show().addClass('current-page');
+// });
+
 Template.header.events({
   'click #getaboutpage': function(){
-      if(currenttemplate == "today"){
-          $("#today").fadeOut(300, function(){
-          $("#about").fadeIn(300);
-          })
-      }else if(currenttemplate == "newdate"){
-          $("#newdate").fadeOut(300, function(){
-          $("#about").fadeIn(300);
-          })
-      }else if(currenttemplate == "newword"){
-          $("#newword").fadeOut(300, function(){
-          $("#about").fadeIn(300);
-          })
-      }else if(currenttemplate == "trends"){
-          $("#trends").fadeOut(300, function(){
-          $("#about").fadeIn(300);
-          })
-      }else {
-          null;
-      }
-    currenttemplate = "about";
+    $('.current-page').fadeOut(300, function(){
+      $("#about").fadeIn(300).addClass('current-page');
+    }).removeClass('current-page');
   }
 });
 Template.header.events({
   'click #backtotoday': function(){
-    if(currenttemplate == "newdate"){
-        $("#newdate").fadeOut(300, function(){
-        $("#today").fadeIn(300);
-        })
-    }else if(currenttemplate == "trends"){
-        $("#trends").fadeOut(300, function(){
-        $("#today").fadeIn(300);
-        })
-    }else if(currenttemplate == "newword"){
-        $("#newword").fadeOut(300, function(){
-        $("#today").fadeIn(300);
-        })
-    }else if(currenttemplate == "about"){
-        $("#about").fadeOut(300, function(){
-        $("#today").fadeIn(300);
-        })
-    }else {
-        null;
-    }
-    currenttemplate = "today";
+    $('.current-page').fadeOut(300, function(){
+      $("#today").fadeIn(300).addClass('current-page');
+    }).removeClass('current-page');
   }
 });
 
 
 Template.buttons.events({
   'click #trendbtn': function(){
-      if(currenttemplate == "today"){
-          $("#today").fadeOut(300, function(){
-          $("#trends").fadeIn(300);
-          })
-      }else if(currenttemplate == "newdate"){
-          $("#newdate").fadeOut(300, function(){
-          $("#trends").fadeIn(300);
-          })
-      }else if(currenttemplate == "newword"){
-          $("#newword").fadeOut(300, function(){
-          $("#trends").fadeIn(300);
-          })
-      }else if(currenttemplate == "about"){
-          $("#about").fadeOut(300, function(){
-          $("#trends").fadeIn(300);
-          })
-      }else {
-          null;
-      }
-    currenttemplate = "trends";
+    $('.current-page').fadeOut(300, function(){
+      $("#trends").fadeIn(300).addClass('current-page');
+    }).removeClass('current-page');
   }
 });
 
 function changeDates(){
-    if(currenttemplate == "today"){
-      $("#today").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
-      });
-    }else if(currenttemplate == "trends"){
-      $("#trends").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
-      });
-    }else if(currenttemplate == "newword"){
-      $("#newword").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
-      });
-    }else if(currenttemplate == "about"){
-        $("#about").fadeOut(300, function(){
-        $("#newdate").fadeIn(300);
-      });
-    }else {
-        null;
-    }
-  currenttemplate = "newdate";
-  Session.set("anewdate", $( "#dates" ).val().toLowerCase());
+    $('.current-page').fadeOut(300, function(){
+      $("#newdate").fadeIn(300).addClass('current-page');
+    }).removeClass('current-page');
+  anewdate = $( "#dates" ).val().toLowerCase();
+  Session.set("anewdate", anewdate);
+  Meteor.subscribe("fromanotherdate", anewdate);
 }
 
 Template.buttons.events({
@@ -118,7 +59,8 @@ Template.buttons.rendered = function(){
   $("#dates").datepicker({
     format: "MM d, yyyy",
     autoclose: true,
-    startDate: new Date(2013, 9, 11)
+    startDate: new Date(2013, 9, 11),
+    endDate: now
   }).on('changeDate', function(e){
     changeDates();
   })
@@ -128,30 +70,15 @@ Template.buttons.rendered = function(){
 
 
 Template.buttons.events({
-  'change #somenewword': function(){
-    if(currenttemplate == "today"){
-        $("#today").fadeOut(300, function(){
-        $("#newword").fadeIn(300);
-        })
-    }else if(currenttemplate == "newdate"){
-        $("#newdate").fadeOut(300, function(){
-        $("#newword").fadeIn(300);
-        })
-    }else if(currenttemplate == "trends"){
-        $("#trends").fadeOut(300, function(){
-        $("#newword").fadeIn(300);
-        })
-    }else if(currenttemplate == "about"){
-        $("#about").fadeOut(300, function(){
-        $("#newword").fadeIn(300);
-        })
-    }else {
-        null;
-    }
-    currenttemplate = "newword";
+  'keyup #somenewword': function(e){
+    if(e.keyCode == 13){
+        $('.current-page').fadeOut(300, function(){
+        $("#newword").fadeIn(300).addClass('current-page');
+      }).removeClass('current-page');
     var selectedword = $( "#somenewword" ).val().toLowerCase()
     Session.set("anewword", selectedword);
     Meteor.subscribe("wordsubset", selectedword);
+    }
   }
 });
 
@@ -179,10 +106,14 @@ Template.newword.searchedword = function(){
   }
   return wordInfo;
 }
+Template.newword.todaysword = function(){
+  var anewword = Session.get("anewword");
+  var wordInfo = Words.findOne({word: anewword, date: displaydate});
+  return wordInfo;
+}
 
 Template.newdate.events({
   'click #tomorrow': function(){
-  alert("tomorrow")
   var monthNames = new Array(
     "january","february","march","april","may","june","july",
     "august","september","october", "november","december");
@@ -200,7 +131,6 @@ Template.newdate.events({
 
 Template.newdate.events({
   'click #yesterday': function(){
-  alert("yesterday")
   var monthNames = new Array(
     "january","february","march","april","may","june","july",
     "august","september","october", "november","december");
@@ -217,7 +147,9 @@ Template.newdate.events({
 });
 
 Template.trends.listofwords = function(){
-    return Words.find({}, {sort: {frequency: -1}, limit: 10});
+    return MostUsed.find({}, {sort: {totalfrequency: -1}, limit: 1});
 }
+
+
 
 
