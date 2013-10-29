@@ -1,5 +1,5 @@
 <head>
-  <title>NewsVisualizer</title>
+  <title>NewsWordy: The Word of the Day</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
   <script type="text/javascript">stLight.options({publisher: "3590be9f-5c93-479f-9c1b-9e62b6696b67", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
@@ -47,11 +47,16 @@
 		</div>
 		<div id="aboutcontent" class="aboutcontent">
 			<p>
-				we're limiting the news to the one word used most each day. <br />taking the content from the homepages of <br /> BBC, New York Times, Al Jazeera, and Reuters,<br />the site has been collecting data since october 16, 2013<br /> and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
+				we're limiting the news to the one word used most each day,<br />
+				taking the content from the homepages of <br /> 
+				BBC, New York Times, Al Jazeera, and Reuters,<br />
+				the site has been collecting data since october 21, 2013<br /> 
+				and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
 				<img src="../img/bbc.gif" height="24px"><img src="../img/nyt.gif" height="30px"><img src="../img/aljazeera.gif" height="30px"><img src="../img/reuters.gif" height="30px">
 			</p>
 			<p class="aboutcredits"> 
-				it was conceived and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
+				it was conceived and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />
+				documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
 			</p>
 		</div>
 	</div>
@@ -65,9 +70,9 @@
 			today is {{wordofday.date}}
 		</div>
 
-		<span class="word">
+		<a href="#" id="word">
 			{{wordofday.word}} 
-		</span> <br />
+		</a> <br />
 
 		<span class="references">
 			{{wordofday.frequency}} mentions today
@@ -85,7 +90,7 @@
 	<div id="newdate">
 		<div id="date" class="newdate">
 				<a href="#" id="yesterday"> &#8592; &nbsp; &nbsp; &nbsp; </a>
-				{{searcheddate.date}}
+				{{searcheddate.date}} 
 				<a href="#" id="tomorrow"> &nbsp; &nbsp; &nbsp; &#8594; </a>
 		</div>
 
@@ -114,7 +119,7 @@
 		{{#isolate}}
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
-				everything you need to know about <span class="highlighted">{{searchedword.word}}</span> 
+				data collected about <span class="highlighted">{{searchedword.word}}</span> since october 21, 2013
 			{{/if}}
 		</div>
 
@@ -146,20 +151,11 @@
 		</div>
 
 		<div id="trendword">
-			<table>
-				{{#each listofwords}}
-					<tr>
-						<td>
-							<span class="trendword">
-								<a href="#" >{{word}}</a> 					
-							</span>
-						</td>
-						<td>
-							<span class="trendfreq"> {{frequency}} mentions </span>
-						</td>
-					</tr> 
-			    {{/each}}
-			</table>
+			<a href="https://www.google.com/#q={{listofwords.word}}" target="_blank" id="wordoftheyear">
+				{{listofwords.word}}
+				<br />
+			</a>
+			<span class="trendfreq"> {{listofwords.totalfrequency}} mentions </span>
 		</div>
 	</div>
 </template>

@@ -191,7 +191,7 @@ input {
 	border: 0px;
 }
 
-.word {
+#word {
 	color: #e68dff;
 	text-transform: lowercase;
 	font-size: 11em;	
@@ -303,7 +303,7 @@ input {
 	margin-left: 187px;
 	margin-top: 3px
 }
-.trendword {
+#wordoftheyear {
 	color: #8dc5ff;
 	text-transform: lowercase;
 	font-size: 5em;

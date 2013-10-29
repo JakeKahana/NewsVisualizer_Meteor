@@ -2,30 +2,35 @@ Meteor.startup(function () {
     function checkTime() {
         var now = new Date();
         console.log('checking time to run?', now);
-        // if (now.getHours() == 5 || now.getHours() == 17) {
+        // if (now.getUTCHours() == 12 || now.getUTCHours() == 0) {
         //     console.log('yup');
         //     processNews();
         // }else{
         //     console.log('nope');
         // 
-        processNews();
+        processNews("http://www.reuters.com");
+        processNews("http://www.nytimes.com");
+        processNews("http://www.bbc.co.uk");
+        processNews("http://america.aljazeera.com");
+
     }
     checkTime();
-    Meteor.setInterval(checkTime, 3600000);
+    Meteor.setInterval(checkTime, 3600000);       
+    Meteor.setInterval(function(){
+        HTTP.get("http://www.newswordy.com", function(err){
+            if(err){
+                console.log(err);
+            }
+        });
+    }, 1200000);
+
 });
 
-function processNews() {
-
-    var monthNames = new Array(
-        "january", "february", "march", "april", "may", "june", "july",
-        "august", "september", "october", "november", "december");
-    var now = new Date();
-    displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
 
-    //get data from BBC
-    HTTP.get('http://www.bbc.co.uk', function (err, result) {
-        //create the date
+function processNews(newssource) {
+    HTTP.get(newssource, function (err, result) {
+
         var monthNames = new Array(
             "january", "february", "march", "april", "may", "june", "july",
             "august", "september", "october", "november", "december");
@@ -63,170 +68,15 @@ function processNews() {
             }
 
             //CREATE A COLLECTION WHERE WE COUNT THE TOTAL USES OVER TIME. CALLED TopWords
-            if (processedWords[word] !== " " || processedWords[word] != "") {
-                if (MostUsed.findOne({word: wordName})){
-                    MostUsed.update({word: wordName}, {$inc: {totalfrequency: word.frequency}});
-                } else {
-                    MostUsed.insert(word)
-                    MostUsed.set({word: wordName}, {totalfrequency: word.frequency});
-                }
-            };
-        });
-    });
-    //get data from AlJazeera
-       HTTP.get('http://america.aljazeera.com', function (err, result) {
-        //create the date
-        var monthNames = new Array(
-            "january", "february", "march", "april", "may", "june", "july",
-            "august", "september", "october", "november", "december");
-        var now = new Date();
-        displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
-
-        //strip content and put into an array of single words
-        var testcontent = stripUnwantedText(result.content);
-        testcontent = testcontent.toLowerCase();
-        var wordlist = testcontent.split(" ");
-
-        var processedWords = {};
-        for (i = 0; i < wordlist.length; i++) {
-            if (processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != "") {
-                if (processedWords[wordlist[i]]) {
-                    processedWords[wordlist[i]].frequency += 1;
-                } else {
-                    processedWords[wordlist[i]] = {
-                        word: wordlist[i],
-                        date: displaydate,
-                        frequency: 1,
-                    }
-                }
+            if (MostUsed.findOne({word: wordName})){
+                MostUsed.update({word: wordName}, {$inc: {totalfrequency: word.frequency}});
+            } else {
+                MostUsed.insert(word)
+                MostUsed.update({word: wordName}, {$set: {totalfrequency: word.frequency}});
             }
-        };
-
-        _.each(processedWords, function (word, wordName) {
-            // if we already have a item with the same word and date, update it
-            if (Words.findOne({word: wordName, date: word.date})) {
-                Words.update({word: wordName,date: word.date}, {$inc: {frequency: word.frequency}});
-            }
-            // otherwise just insert our new item
-            else {
-                Words.insert(word)
-            }
-
-            //CREATE A COLLECTION WHERE WE COUNT THE TOTAL USES OVER TIME. CALLED TopWords
-            if (processedWords[word] !== " " || processedWords[word] != "") {
-                if (MostUsed.findOne({word: wordName})){
-                    MostUsed.update({word: wordName}, {$inc: {totalfrequency: word.frequency}});
-                } else {
-                    MostUsed.insert(word)
-                    MostUsed.set({word: wordName}, {totalfrequency: word.frequency});
-                }
-            };
         });
     });
 
-
-
-//get data from NYT
-    HTTP.get('http://www.nytimes.com', function (err, result) {
-        //create the date
-        var monthNames = new Array(
-            "january", "february", "march", "april", "may", "june", "july",
-            "august", "september", "october", "november", "december");
-        var now = new Date();
-        displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
-
-        //strip content and put into an array of single words
-        var testcontent = stripUnwantedText(result.content);
-        testcontent = testcontent.toLowerCase();
-        var wordlist = testcontent.split(" ");
-
-        var processedWords = {};
-        for (i = 0; i < wordlist.length; i++) {
-            if (processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != "") {
-                if (processedWords[wordlist[i]]) {
-                    processedWords[wordlist[i]].frequency += 1;
-                } else {
-                    processedWords[wordlist[i]] = {
-                        word: wordlist[i],
-                        date: displaydate,
-                        frequency: 1,
-                    }
-                }
-            }
-        };
-
-        _.each(processedWords, function (word, wordName) {
-            // if we already have a item with the same word and date, update it
-            if (Words.findOne({word: wordName, date: word.date})) {
-                Words.update({word: wordName,date: word.date}, {$inc: {frequency: word.frequency}});
-            }
-            // otherwise just insert our new item
-            else {
-                Words.insert(word)
-            }
-
-            //CREATE A COLLECTION WHERE WE COUNT THE TOTAL USES OVER TIME. CALLED TopWords
-            if (processedWords[word] !== " " || processedWords[word] != "") {
-                if (MostUsed.findOne({word: wordName})){
-                    MostUsed.update({word: wordName}, {$inc: {totalfrequency: word.frequency}});
-                } else {
-                    MostUsed.insert(word)
-                    MostUsed.set({word: wordName}, {totalfrequency: word.frequency});
-                }
-            };
-        });
-    });
-
-//get data from Reuters
-    HTTP.get('http://www.reuters.com', function (err, result) {
-        //create the date
-        var monthNames = new Array(
-            "january", "february", "march", "april", "may", "june", "july",
-            "august", "september", "october", "november", "december");
-        var now = new Date();
-        displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
-
-        //strip content and put into an array of single words
-        var testcontent = stripUnwantedText(result.content);
-        testcontent = testcontent.toLowerCase();
-        var wordlist = testcontent.split(" ");
-
-        var processedWords = {};
-        for (i = 0; i < wordlist.length; i++) {
-            if (processedWords[wordlist[i]] !== " " || processedWords[wordlist[i]] != "") {
-                if (processedWords[wordlist[i]]) {
-                    processedWords[wordlist[i]].frequency += 1;
-                } else {
-                    processedWords[wordlist[i]] = {
-                        word: wordlist[i],
-                        date: displaydate,
-                        frequency: 1,
-                    }
-                }
-            }
-        };
-
-        _.each(processedWords, function (word, wordName) {
-            // if we already have a item with the same word and date, update it
-            if (Words.findOne({word: wordName, date: word.date})) {
-                Words.update({word: wordName,date: word.date}, {$inc: {frequency: word.frequency}});
-            }
-            // otherwise just insert our new item
-            else {
-                Words.insert(word)
-            }
-
-            //CREATE A COLLECTION WHERE WE COUNT THE TOTAL USES OVER TIME. CALLED TopWords
-            if (processedWords[word] !== " " || processedWords[word] != "") {
-                if (MostUsed.findOne({word: wordName})){
-                    MostUsed.update({word: wordName}, {$inc: {totalfrequency: word.frequency}});
-                } else {
-                    MostUsed.insert(word)
-                    MostUsed.set({word: wordName}, {totalfrequency: word.frequency});
-                }
-            };
-        });
-    });
 };
 
 function stripUnwantedText(html) {
@@ -277,6 +127,7 @@ function stripUnwantedText(html) {
             'always',
             'alt',
             'am',
+            'america', 
             'amid',
             'amidst',
             'among',
@@ -337,10 +188,14 @@ function stripUnwantedText(html) {
             'better',
             'between',
             'beyond',
+            'blog', 
+            'blogs',
             'bn',
+            'books', 
             'both',
             'brief',
             'browser',
+            'business', 
             'but',
             'by',
             'c',
@@ -380,6 +235,8 @@ function stripUnwantedText(html) {
             'd',
             'dare',
             'darent',
+            'data', 
+            'date', 
             'de',
             'december',
             'definitely',
@@ -400,8 +257,10 @@ function stripUnwantedText(html) {
             'during',
             'e',
             'each',
+            'economy', 
             'ed',
             'edu',
+            'education', 
             'eg',
             'eight',
             'eighty',
@@ -456,6 +315,7 @@ function stripUnwantedText(html) {
             'further',
             'furthermore',
             'g',
+            'garden', 
             'get',
             'gets',
             'getting',
@@ -480,6 +340,7 @@ function stripUnwantedText(html) {
             'havent',
             'having',
             'he',
+            'health', 
             'hed',
             'height',
             'hell',
@@ -501,6 +362,7 @@ function stripUnwantedText(html) {
             'himself',
             'his',
             'hither',
+            'home', 
             'hopefully',
             'how',
             'howbeit',
@@ -777,6 +639,7 @@ function stripUnwantedText(html) {
             'specified',
             'specify',
             'specifying',
+            'sports', 
             'src',
             'still',
             'story',
@@ -788,9 +651,13 @@ function stripUnwantedText(html) {
             'sup',
             'sure',
             't',
+            'tag', 
+            'tagged',
+            'tags', 
             'take',
             'taken',
             'taking',
+            'technology', 
             'tell',
             'temp',
             'temperature',
@@ -1028,7 +895,7 @@ Meteor.publish("wordsubset", function (arg) {
 });
 
 Meteor.publish("mostused", function () {
-    return TopWords.find({}, {
+    return MostUsed.find({}, {
         sort: {
             totalfrequency: -1
         },

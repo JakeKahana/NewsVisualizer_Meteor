@@ -147,9 +147,20 @@ Template.newdate.events({
 });
 
 Template.trends.listofwords = function(){
-    return MostUsed.find({}, {sort: {totalfrequency: -1}, limit: 1});
+    return MostUsed.findOne({}, {sort: {totalfrequency: -1}});
 }
 
+
+//When you load the trends page, it takes that word and makes it search google for it when you click on it.
+// Template.trends.events({
+//   'load #wordoftheyear': function(){
+//     searchurl = "https://www.google.com/#q="
+//     theword = $("#wordoftheyear").html();
+//     theword = theword.replace(/\s/g, '');
+//     searchurl = searchurl + theword;
+//     document.getElementById("word").href = searchurl;
+//   }
+// });
 
 
 
