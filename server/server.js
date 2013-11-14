@@ -2,18 +2,15 @@ Meteor.startup(function () {
     function checkTime() {
         var now = new Date();
         console.log('checking time to run?', now);
-        // if (now.getUTCHours() == 12 || now.getUTCHours() == 0) {
-        //     console.log('yup');
-        //     processNews();
-        // }else{
-        //     console.log('nope');
-        // 
-        processNews("http://www.reuters.com");
-        processNews("http://www.nytimes.com");
-        processNews("http://www.bbc.co.uk");
-        processNews("http://america.aljazeera.com");
-
-    }
+        if (now.getUTCHours() == 12 || now.getUTCHours() == 0) {
+            console.log('yup');
+            processNews("http://www.reuters.com");
+            processNews("http://www.nytimes.com");
+            processNews("http://www.bbc.co.uk");
+            processNews("http://america.aljazeera.com");
+        }else{
+            console.log('nope');
+        } 
     checkTime();
     Meteor.setInterval(checkTime, 3600000);       
     Meteor.setInterval(function(){
@@ -22,11 +19,9 @@ Meteor.startup(function () {
                 console.log(err);
             }
         });
-    }, 1200000);
-
+      }, 1200000);
+    };
 });
-
-
 
 function processNews(newssource) {
     HTTP.get(newssource, function (err, result) {
@@ -76,7 +71,6 @@ function processNews(newssource) {
             }
         });
     });
-
 };
 
 function stripUnwantedText(html) {
@@ -87,7 +81,7 @@ function stripUnwantedText(html) {
         noScriptRegex = /<noscript\b[^<]*(?:(?!<\/noscript>)<[^<]*)*<\/noscript>/gi,
         styleRegex = /<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi,
         commentRegex = /<!--(.|\s)*?-->/gi,
-        htmlTagRegex = /<.+?>/igm,
+        htmlTagRegex = /<(?:.|\n)*?>/gm,
         characterEntityRegex = /&.+?;/gim,
         nonAlphaCharacterRegex = /[^A-Za-z ']/gi,
         apostropheRegex = /'/g,
@@ -113,6 +107,7 @@ function stripUnwantedText(html) {
             'ago',
             'ahead',
             'aint',
+            'ajam',
             'al',
             'all',
             'allow',
@@ -151,6 +146,7 @@ function stripUnwantedText(html) {
             'are',
             'arent',
             'around',
+            'article',
             'as',
             'as',
             'aside',
@@ -193,6 +189,7 @@ function stripUnwantedText(html) {
             'bn',
             'books', 
             'both',
+            'breaking', 
             'brief',
             'browser',
             'business', 
@@ -205,11 +202,13 @@ function stripUnwantedText(html) {
             'cant',
             'cant',
             'caption',
+            'cartoons', 
             'cause',
             'causes',
             'certain',
             'certainly',
             'changes',
+            'classifieds', 
             'clearly',
             'cmon',
             'co',
@@ -231,6 +230,7 @@ function stripUnwantedText(html) {
             'course',
             'cs',
             'css',
+            'culture', 
             'currently',
             'd',
             'dare',
@@ -245,6 +245,7 @@ function stripUnwantedText(html) {
             'did',
             'didnt',
             'different',
+            'dining', 
             'directly',
             'do',
             'does',
@@ -271,8 +272,10 @@ function stripUnwantedText(html) {
             'ending',
             'enough',
             'entirely',
+            'environment', 
             'especially',
             'est',
+            'estate', 
             'et',
             'etc',
             'even',
@@ -287,10 +290,12 @@ function stripUnwantedText(html) {
             'exactly',
             'example',
             'except',
+            'exclusive', 
             'f',
             'fairly',
             'far',
             'farther',
+            'featured', 
             'february',
             'few',
             'fewer',
@@ -312,6 +317,7 @@ function stripUnwantedText(html) {
             'fri',
             'friday',
             'from',
+            'full', 
             'further',
             'furthermore',
             'g',
@@ -319,6 +325,7 @@ function stripUnwantedText(html) {
             'get',
             'gets',
             'getting',
+            'getty', 
             'given',
             'gives',
             'go',
@@ -376,6 +383,7 @@ function stripUnwantedText(html) {
             'ignored',
             'ill',
             'im',
+            'images',
             'img',
             'immediate',
             'in',
@@ -426,6 +434,7 @@ function stripUnwantedText(html) {
             'lest',
             'let',
             'lets',
+            'life', 
             'like',
             'liked',
             'likely',
@@ -440,11 +449,13 @@ function stripUnwantedText(html) {
             'ltd',
             'm',
             'made',
+            'magazine', 
             'mainly',
             'make',
             'makes',
             'many',
             'march',
+            'markets', 
             'max',
             'may',
             'maybe',
@@ -459,17 +470,21 @@ function stripUnwantedText(html) {
             'min',
             'mine',
             'minus',
+            'minutes', 
             'miss',
             'mon',
             'monday',
+            'money', 
             'more',
             'moreover',
             'most',
             'mostly',
+            'movies', 
             'mr',
             'mrs',
             'much',
             'must',
+            'music', 
             'mustnt',
             'my',
             'myself',
@@ -510,6 +525,7 @@ function stripUnwantedText(html) {
             'nowhere',
             'nytimes',
             'nyt',
+            'nyteln', 
             'o',
             'obviously',
             'october',
@@ -551,10 +567,12 @@ function stripUnwantedText(html) {
             'past',
             'per',
             'perhaps',
+            'pictures', 
             'placed',
             'please',
             'plus',
             'pm',
+            'politics', 
             'possible',
             'post',
             'presumably',
@@ -570,6 +588,8 @@ function stripUnwantedText(html) {
             'rather',
             'rd',
             're',
+            'read', 
+            'real',
             'really',
             'reasonably',
             'recent',
@@ -578,6 +598,7 @@ function stripUnwantedText(html) {
             'regardless',
             'regards',
             'relatively',
+            'related', 
             'respectively',
             'reuters',
             'reutersmedia',
@@ -594,6 +615,8 @@ function stripUnwantedText(html) {
             'say',
             'saying',
             'says',
+            'schedule',
+            'science', 
             'se',
             'second',
             'secondly',
@@ -619,10 +642,13 @@ function stripUnwantedText(html) {
             'shed',
             'shell',
             'shes',
+            'show',
+            'shows', 
             'should',
             'shouldnt',
             'since',
             'six',
+            'slide', 
             'so',
             'some',
             'somebody',
@@ -720,11 +746,13 @@ function stripUnwantedText(html) {
             'to',
             'together',
             'top',
+            'topic', 
             'topics',
             'too',
             'took',
             'toward',
             'towards',
+            'trending',
             'tried',
             'tries',
             'truly',
@@ -735,6 +763,7 @@ function stripUnwantedText(html) {
             'tues',
             'twice',
             'two',
+            'tv', 
             'u',
             'un',
             'under',
@@ -763,6 +792,7 @@ function stripUnwantedText(html) {
             'very',
             'via',
             'video',
+            'videos', 
             'viz',
             'vs',
             'w',
@@ -770,6 +800,7 @@ function stripUnwantedText(html) {
             'wants',
             'was',
             'wasnt',
+            'watch', 
             'way',
             'we',
             'wed',
@@ -817,6 +848,7 @@ function stripUnwantedText(html) {
             'width',
             'will',
             'willing',
+            'wine', 
             'wish',
             'with',
             'within',
@@ -828,6 +860,7 @@ function stripUnwantedText(html) {
             'wouldnt',
             'x',
             'y',
+            'years',
             'yes',
             'yet',
             'york',

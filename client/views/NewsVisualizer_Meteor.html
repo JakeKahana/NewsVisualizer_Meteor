@@ -1,12 +1,16 @@
 <head>
-  <title>NewsWordy: The Word of the Day</title>
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-  <script type="text/javascript">stLight.options({publisher: "3590be9f-5c93-479f-9c1b-9e62b6696b67", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
-
+  	<title>What's NewsWordy: What's the most used word in the news today?</title>
+  	<link href='http://fonts.googleapis.com/css?family=Lato:100,400,900,100italic' rel='stylesheet' type='text/css'>
+  	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  	<script type="text/javascript">stLight.options({publisher: "3590be9f-5c93-479f-9c1b-9e62b6696b67", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+	<link rel="icon" href="../img/favicon.ico" type="image/x-icon" /> 
+	<meta name="description" content="Searching the top world news sources to find the word of the day.">
+	<meta name="keywords" content="news, word, newswordy, newsworthy, journalism, current events, global, world, international, side project, JavaScript, kahana, serlin, natalie sun, jake kahana, jakekahana, ian">
+	<meta name="author" content="Jake Kahana, Natalie Sun and Ian Serlin">
 </head>
 
 <body>
+
   		{{> header}}
 	<div id="container">
   		{{> about}}
@@ -32,9 +36,18 @@
 				<span class="subhead">
 					<a href="#" id="getaboutpage">about</a> &nbsp; &nbsp;| &nbsp;&nbsp;share
 				</span>
-					<span class='st_twitter'></span>
-					<span class='st_facebook'></span>
-					<span class='st_googleplus'></span>
+				<span id="sharebuttons">
+					<a href="http://whatsnewswordy.com" title="Check out the word of the day at " class="tweet" target="_blank"><img src="../img/twitter.png"></a>
+
+					<!--       <div class="fb-share-button" data-href="http://www.whatsnewswordy.com" data-type="icon"></div> -->
+
+				    <a href="http://facebook.com/sharer.php?u=http://whatsnewswordy.com" onclick="javascript:window.open(this.href,
+				    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="../img/facebook.png"></a>
+
+			      <a href="https://plus.google.com/share?url=http://whatsnewswordy.com" onclick="javascript:window.open(this.href,
+			        '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
+			        src="../img/gplus.gif" alt="Share on Google+"/></a>
+			    </span>    
 			</div>	
 		</div>
 	</div>
@@ -47,16 +60,16 @@
 		</div>
 		<div id="aboutcontent" class="aboutcontent">
 			<p>
-				we're limiting the news to the one word used most each day,<br />
+				We're limiting the news to the one word used most each day,<br />
 				taking the content from the homepages of <br /> 
-				BBC, New York Times, Al Jazeera, and Reuters,<br />
-				the site has been collecting data since october 21, 2013<br /> 
+				BBC, New York Times, Al Jazeera, and Reuters.<br /><br />
+				The site has been collecting data since november 13, 2013<br /> 
 				and saves the data every 12 hours, at 5am and 5pm PST every day.<br />
 				<img src="../img/bbc.gif" height="24px"><img src="../img/nyt.gif" height="30px"><img src="../img/aljazeera.gif" height="30px"><img src="../img/reuters.gif" height="30px">
 			</p>
 			<p class="aboutcredits"> 
 				it was conceived and built by <a href="http://www.jakekahana.com" target="_blank">Jake Kahana</a>, <a href="http://onattyso.com/" target="_blank">Natalie Sun</a> and <a href="http://ianserlin.com/" target="_blank">Ian Serlin</a>. <br />
-				documentation available at <a href="http://www.github.com/TBDproject" target="_blank">github</a>
+				documentation available at <a href="https://github.com/JakeKahana/NewsVisualizer_Meteor" target="_blank">github</a>
 			</p>
 		</div>
 	</div>
@@ -70,7 +83,7 @@
 			today is {{wordofday.date}}
 		</div>
 
-		<a href="#" id="word">
+		<a href="https://www.google.com/#q={{wordofday.word}}" target="_blank" id="word">
 			{{wordofday.word}} 
 		</a> <br />
 
@@ -89,16 +102,19 @@
 <template name="newdate">
 	<div id="newdate">
 		<div id="date" class="newdate">
+			{{#if searcheddate.date}}	
 				<a href="#" id="yesterday"> &#8592; &nbsp; &nbsp; &nbsp; </a>
 				{{searcheddate.date}} 
 				<a href="#" id="tomorrow"> &nbsp; &nbsp; &nbsp; &#8594; </a>
+			{{else}}
+			{{/if}}	
 		</div>
 
 		<span class="newdateword">
 			{{#if searcheddate}}
 				{{searcheddate.word}} 
 			{{else}}
-				huh?!
+				sorry
 			{{/if}}
 		</span> <br />
 
@@ -106,8 +122,8 @@
 			{{#if searcheddate}}
 				{{searcheddate.frequency}} references on {{searcheddate.date}}
 			{{else}}
-				that date didn't make sense to us <br />
-				search again 
+				we couldn't find a word for the date you selected <br />
+				please pick a different date 
 			{{/if}}
 		</span><br />
 
@@ -119,7 +135,7 @@
 		{{#isolate}}
 		<div id="searchword" class="searchdate">
 			{{#if searchedword}}
-				data collected about <span class="highlighted">{{searchedword.word}}</span> since october 21, 2013
+				data collected about <span class="highlighted">{{searchedword.word}}</span> since november 13, 2013
 			{{/if}}
 		</div>
 
@@ -127,7 +143,7 @@
 			{{#if searchedword}}
 				{{searchedword.word}}
 			{{else}}
-				wtf?!
+				sorry
 			{{/if}}
 		</span> <br />
 
@@ -136,8 +152,8 @@
 				{{searchedword.frequency}} mentions today <br /><br />
 				{{searchedword.uses}} mentions since this site was created
 			{{else}}
-				that word doesn't make sense to us <br />
-				search another word
+				we couldn't find the word you searched  <br />
+				please search for a new word
 			{{/if}}
 		</span><br />
 		{{/isolate}}
@@ -147,7 +163,7 @@
 <template name="trends">
 	<div id="trends">
 		<div id="trendate" class="trendate">
-			word of the year
+			the most used word of {{yr}} (so far)
 		</div>
 
 		<div id="trendword">
@@ -178,3 +194,5 @@
 		<a href="#" id="trendbtn">word of the year</a>
 	</div>
 </template>
+
+

@@ -29,14 +29,21 @@ body{
     margin-right: 10px;
 	position:relative;
 	float: right;
-	top: 0px;
-	margin-top: 2px;
 }
 
 #sharebtn span{
-	margin: 3px;
+	vertical-align: middle;
+}
+
+#sharebtn img{
+	margin: 2px;
 	vertical-align: middle;
 
+}
+
+#sharebuttons{
+	margin-top: 9px;
+	padding-left: 4px;
 }
 
 
@@ -299,17 +306,21 @@ input {
 }
 #trendword{
 	overflow: scroll;
-	height: 346px;
-	margin-left: 187px;
-	margin-top: 3px
+	height: 280px;
+	text-align: center;
+	margin-top: 65px;
 }
 #wordoftheyear {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: 5em;
-	text-align: left;
-	margin: 15px;
+	font-size: 11em;
+/*	text-align: left;
+	margin: 15px;*/
 	overflow: scroll;
+
+	margin-top: 90px;
+	margin-bottom: 5px;		
+	height: 400px;
 }
 .trendfreq {
 	color: #8dc5ff;
