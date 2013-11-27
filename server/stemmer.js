@@ -8,6 +8,7 @@
 
 // Release 1 be 'andargor', Jul 2004
 // Release 2 (substantially revised) by Christopher McKenzie, Aug 2009
+// tests
 
 var stemmer = (function(){
 	var step2list = {
