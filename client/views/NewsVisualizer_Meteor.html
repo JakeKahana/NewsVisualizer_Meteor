@@ -79,17 +79,26 @@
 <template name="today">
 	<div id="today" class="current-page">
 		{{#isolate}}
-		<div id="date" class="date">
-			today is {{wordofday.date}}
-		</div>
+			<div id="date" class="date">
+				today is {{todaysdate}}
+			</div>
 
-		<a href="https://www.google.com/#q={{wordofday.word}}" target="_blank" id="word">
-			{{wordofday.word}} 
-		</a> <br />
+			{{#if wordofday}}
+				<a href="https://www.google.com/#q={{wordofday.word}}" target="_blank" id="word">
+					{{wordofday.word}} 
+				</a> <br />
 
-		<span class="references">
-			{{wordofday.frequency}} mentions today
-		</span><br />
+				<span class="references">
+					{{wordofday.frequency}} mentions today
+				</span><br />
+			{{else}}
+				<span id="word">
+					^_^
+				</span><br/>
+				<span class="references">
+					Today's word has not been captured yet.<br/>Choose another date or check back after 6am Pacific Time.
+				</span><br />
+			{{/if}}
 		{{/isolate}}
 <!-- 		Insert Graph 
 	<div id="holder"></div>
@@ -190,7 +199,7 @@
 		</span>
 		<input type="text" placeholder="type word here" class="jumptoword" id="somenewword">		
 	</div>
-	<div class="bottombutton">
+	<div class="bottombutton trendbtncontainer">
 		<a href="#" id="trendbtn">word of the year</a>
 	</div>
 </template>
