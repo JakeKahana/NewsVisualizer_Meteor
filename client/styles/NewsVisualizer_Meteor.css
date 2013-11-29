@@ -151,14 +151,19 @@ a:visited{
 	background-color: #000;
 	display: inline-block;
 	text-align: center;
-	width: 265px;
-	height:30px;
+	width: 258px;
 	padding-top: 13px;
+	padding-bottom: 13px;
+	padding-left: 6px;
 	font-size: 0.8em;
 }
 
 #trendbtn {
 	font-size: 1.4em;
+}
+
+.trendbtncontainer {
+	padding-bottom: 16px;
 }
 
 input {
@@ -168,9 +173,7 @@ input {
 }
 
 .jump{
-	margin-left: 10px;	
 	font-size: 1.4em;
-
 }
 
 .jumptodate {
@@ -184,6 +187,7 @@ input {
 	margin-left: 5px;
 	margin-right: 5px;
 	border: 0px;
+	width: 139px;
 }
 .jumptoword {
 	background-color: #111;
@@ -196,6 +200,7 @@ input {
 	margin-left: 5px;
 	margin-right: 5px;
 	border: 0px;
+	width: 137px;
 }
 
 #word {
@@ -372,3 +377,9 @@ input {
 ::-webkit-resizer {
 
 }  
+.datepicker .day {
+	color: #FFF;
+}
+.datepicker .day:hover {
+	color: #232323;
+}
