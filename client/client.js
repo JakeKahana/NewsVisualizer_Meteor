@@ -1,10 +1,3 @@
-Meteor.subscribe("fromtoday", function(){
-  // this subscription is ready
-  $("#today").show().addClass('current-page');
-});
-
-Meteor.subscribe("mostused");
-
 //getting today's date
 var monthNames = new Array(
 "january","february","march","april","may","june","july",
@@ -12,9 +5,12 @@ var monthNames = new Array(
 var now = new Date();
 displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
 
-// Meteor.startup(function(){
-//   $("#today").show().addClass('current-page');
-// });
+Meteor.subscribe("fromtoday", displaydate, function(){
+  // this subscription is ready
+  $("#today").show().addClass('current-page');
+});
+
+Meteor.subscribe("mostused");
 
 Template.header.events({
   'click #getaboutpage': function(){
@@ -81,6 +77,10 @@ Template.buttons.events({
     }
   }
 });
+
+Template.today.todaysdate = function(){
+  return displaydate;
+};
 
 Template.today.wordofday = function(){
   var todaysdate = Words.findOne({date: displaydate}, {sort: {frequency: -1}, limit: 1})

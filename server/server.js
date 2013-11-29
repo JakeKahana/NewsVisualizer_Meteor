@@ -894,44 +894,39 @@ function stripUnwantedText(html) {
     return content;
 };
 
-Meteor.publish("fromtoday", function () {
-    var monthNames = new Array(
-        "january", "february", "march", "april", "may", "june", "july",
-        "august", "september", "october", "november", "december");
-    var now = new Date();
-    displaydate = monthNames[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+Meteor.publish("fromtoday", function (clientdate) {
     return Words.find({
-        date: displaydate
+	  date: clientdate
     }, {
-        sort: {
-            frequency: -1
-        },
-        limit: 10
+	  sort: {
+		frequency: -1
+	  },
+	  limit: 10
     });
 });
 
 Meteor.publish("fromanotherdate", function (somenewdate) {
     return Words.find({
-        date: somenewdate
+	  date: somenewdate
     }, {
-        sort: {
-            frequency: -1
-        },
-        limit: 10
+	  sort: {
+		frequency: -1
+	  },
+	  limit: 10
     });
 });
 
 Meteor.publish("wordsubset", function (arg) {
     return Words.find({
-        word: arg
+	  word: arg
     });
 });
 
 Meteor.publish("mostused", function () {
     return MostUsed.find({}, {
-        sort: {
-            totalfrequency: -1
-        },
-        limit: 1
+	  sort: {
+		totalfrequency: -1
+	  },
+	  limit: 1
     });
 });
