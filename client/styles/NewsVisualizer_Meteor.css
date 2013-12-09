@@ -9,6 +9,21 @@ body{
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
+
+a{
+	text-decoration: none;	
+	color:inherit;
+}
+
+a:hover{
+	opacity: 0.8;
+}
+
+a:visited{
+	text-decoration: none;
+	color: inherit;
+}
+
 #header {
 	background-color: #000000;
 	width: 100%;
@@ -50,7 +65,7 @@ body{
 .title{
 	color: #fff;
 	text-transform: uppercase;
-	font-size: 1.6em;
+	font-size: 24px;
 	margin-top: 15px;
 	margin-left: 20px;
 	vertical-align: middle;
@@ -65,11 +80,20 @@ body{
 	color: #fff;
 	text-transform: lowercase;
 	font-style: italic;
-	font-size: .9em;
+	font-size: 14px;
 	margin-top: 15px;
 	margin-left: 20px;
 	vertical-align: middle;
 
+}
+.subhead a{
+	text-decoration: none;
+	color: #fff;
+}
+
+.subhead a:visited{
+	text-decoration: none;
+	color: #fff;
 }
 
 
@@ -78,14 +102,14 @@ body{
 	margin-right: 20px;
 }
 
-#container{
+#container{	
 	background-color: #000;
 	height: 400px;
-	width: 800px;
 	margin-left:auto;
 	margin-right:auto;
 	margin-bottom: 10px;
 	margin-top: 80px;
+	width: 801px;
 
 }
 
@@ -99,7 +123,7 @@ body{
 .aboutdate {		
 	color: #fff;
 	text-transform: lowercase;
-	font-size: .9em;
+	font-size: 14px;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
@@ -107,7 +131,7 @@ body{
 }
 .aboutcontent{
 	color: #fff;
-	font-size: 2em;
+	font-size: 20px;
 	text-transform: lowercase;
 	text-align: center;
 	padding: 10px;
@@ -119,17 +143,12 @@ body{
 }
 .aboutcredits{
 	color: #fff;
-	font-size:.5em;
+	font-size:14px;
 	font-style: italic;
 	padding: 10px;
 	margin-top: 25px;
 }
-.aboutcredits a{
-	color: #fff;
-}
-.aboutcredits a:hover{
-	color: #BFF839;
-}
+
 #today{
 	margin-top: 90px;
 	margin-bottom: 5px;		
@@ -137,76 +156,46 @@ body{
 	text-align: center;
 }
 
-a {
-	text-transform: lowercase;
-	text-decoration: none;
-}
-
-a:visited{
-	text-decoration: none;
-	color: inherit;
-}
-
 .bottombutton{
 	background-color: #000;
 	display: inline-block;
 	text-align: center;
-	width: 258px;
-	padding-top: 13px;
-	padding-bottom: 13px;
+	width: 259px;
+	height: auto;
+	padding-top: 17px;
+	padding-bottom: 17px;
 	padding-left: 6px;
-	font-size: 0.8em;
 }
 
-#trendbtn {
-	font-size: 1.4em;
+.bottombutton a:visited{
+	text-decoration: none;
+	color: #fff;
 }
 
-.trendbtncontainer {
-	padding-bottom: 16px;
-}
 
 input {
 	text-align: center;
-	padding: 2px;
-	font-size: 1em;
+	font-size: 10px;
+	color: #5C5C5C;
+	background-color: #111;
+	border: 0px;
+	text-decoration: none;
+	text-transform: lowercase;
+	font-size: 14px;
+	text-align: left;
+	margin: 0px;
+	padding: 0px;
 }
 
 .jump{
-	font-size: 1.4em;
+	font-size: 14px;
 }
 
-.jumptodate {
-	background-color: #111;
-	color: #bbb;
-	font-weight: 100;
-	text-transform: lowercase;
-	text-decoration: none;
-	font-size: 1em;
-	text-align: left;
-	margin-left: 5px;
-	margin-right: 5px;
-	border: 0px;
-	width: 139px;
-}
-.jumptoword {
-	background-color: #111;
-	color: #bbb;
-	font-weight: 100;
-	text-transform: lowercase;
-	text-decoration: none;
-	font-size: 1em;
-	text-align: left;
-	margin-left: 5px;
-	margin-right: 5px;
-	border: 0px;
-	width: 137px;
-}
 
 #word {
 	color: #e68dff;
 	text-transform: lowercase;
-	font-size: 11em;	
+	font-size: 123px;	
 	text-align: center;
 	margin: 15px;
 }
@@ -214,7 +203,7 @@ input {
 .date {		
 	color: #e68dff;
 	text-transform: lowercase;
-	font-size: 1.4em;
+	font-size: 14px;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
@@ -223,7 +212,7 @@ input {
 }
 .references{
 	color: #e68dff;
-	font-size: .9em;
+	font-size: 14px;
 	text-transform: lowercase;
 	text-align: center;
 
@@ -239,7 +228,7 @@ input {
 .newdateword {
 	color: #eeff8d;
 	text-transform: lowercase;
-	font-size: 11em;	
+	font-size: 123px;	
 	text-align: center;
 	margin: 15px;
 }
@@ -247,7 +236,7 @@ input {
 .newdate {
 	color: #eeff8d;
 	text-transform: lowercase;
-	font-size: 1.4em;
+	font-size: 14px;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
@@ -258,9 +247,13 @@ input {
 
 .newreferences{
 	color: #eeff8d;
-	font-size: .9em;
+	font-size: 14px;
 	text-transform: lowercase;
 	text-align: center;
+}
+
+#newdate a:visited{
+	color: #eeff8d;
 }
 
 
@@ -274,18 +267,17 @@ input {
 .searchword {
 	color: #8cf998;
 	text-transform: lowercase;
-	font-size: 11em;	
+	font-size: 123px;	
 	text-align: center;
 	margin: 15px;
 }
 .highlighted{
 	color: #C5FACB;
-	text-transform: uppercase;
 }
 .searchdate {
 	color: #8cf998;
 	text-transform: lowercase;
-	font-size: 1.4em;
+	font-size: 14px;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;
@@ -296,7 +288,7 @@ input {
 
 .searchreferences{
 	color: #8cf998;
-	font-size: .9em;
+	font-size: 14px;
 	text-transform: lowercase;
 	text-align: center;
 }
@@ -318,7 +310,7 @@ input {
 #wordoftheyear {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: 11em;
+	font-size: 123px;
 /*	text-align: left;
 	margin: 15px;*/
 	overflow: scroll;
@@ -330,7 +322,7 @@ input {
 .trendfreq {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: 1.5em;
+	font-size: 14px;
 	text-align: left;
 	margin: 15px;
 	overflow: scroll;
@@ -338,7 +330,7 @@ input {
 .trendate {
 	color: #8dc5ff;
 	text-transform: lowercase;
-	font-size: 1.4em;
+	font-size: 14px;
 	text-align: center;
 	background-color: #191919;
 	padding-top: 15px;

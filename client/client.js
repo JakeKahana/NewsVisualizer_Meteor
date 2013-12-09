@@ -55,12 +55,12 @@ Template.buttons.rendered = function(){
   $("#dates").datepicker({
     format: "MM d, yyyy",
     autoclose: true,
-    startDate: new Date(2013, 9, 11),
+    startDate: new Date(2013, 10, 30),
     endDate: now
   }).on('changeDate', function(e){
     changeDates();
   })
-  $("#dates").val(displaydate);
+  // $("#dates").val(displaydate);
 
 };
 
